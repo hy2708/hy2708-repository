@@ -1,0 +1,78 @@
+//业务一：测试READ UNCOMMITTED
+	#张三准备用ATM机向其北京招行的帐户汇1000块钱，
+	#在汇之前先用其智能手机的手机银行客户端查询到其北京账户还剩100,
+	#接着他用ATM机向其北京帐户打过去1000，在提示确认提交时，
+	#他又用手机查看了一下其帐户余额竟然为1100。
+
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+	SELECT @@tx_isolation;
+	t1:
+		BEGIN;
+		SELECT * FROM bankaccount WHERE id='123456';
+	t2: 空闲
+
+	t3:
+		SELECT * FROM bankaccount WHERE id='123456';
+	#总结：READ UNCOMMITTED，会使当前事务读其它事务没有提交的数据，即出现：脏读
+
+
+//业务二：测试READ COMMITTED
+	#张三用其智能手机的手机银行客户端查询其招行帐户余额为100元，
+	#他没有马上退出，去做了一会别的事，在此过程中他老婆在一个ATM机上
+	#向其帐户上汇入了1000元，他回来后又刷新了一下余额，竟然为1100元。
+
+	SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+	SELECT @@tx_isolation;
+
+	t1:
+		BEGIN;
+		SELECT * FROM bankaccount WHERE id='123456';
+	t2: 空闲
+	t3:
+		SELECT * FROM bankaccount WHERE id='123456';
+	t4: 空闲
+	t5:
+		SELECT * FROM bankaccount WHERE id='123456';
+	#总结：READ COMMITTED　当前事务能读到其它事务提交的数据，即出现：不可重复读
+	 
+//业务三：测试REPEATABLE READ
+	#张三用其智能手机的手机银行客户端查询其招行帐户余额为300元，
+	#他准备用其中的200去抢购一个商品，在他没付款之前他的老婆取走100元，
+	#他再次查看了一下余额，还是300元，他花了200支付了商品
+	#在支付完后，他再次查了一下余额，竟然发现账户里一毛钱都没有啦！
+
+	SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+	SELECT @@tx_isolation;
+
+	t1:
+		BEGIN;
+		SELECT * FROM bankaccount WHERE id='123456';#300
+	t2: 空闲
+
+	t3:
+		SELECT * FROM bankaccount WHERE id='123456';　#300 不变，没有脏读
+	t4: 空闲
+	t5:
+		SELECT * FROM bankaccount WHERE id='123456'; #300 不变，没有：不可重复读
+	t6:
+		UPDATE bankaccount SET balance=balance-200; #将账户余额减去200,应该还剩下100
+	t7
+		SELECT * FROM bankaccount;                  #０　与预期的值不一致，出现：幻读
+	#结果：t5与t3时刻得到的结果是一样的数据，但另一个事务已经更新的数据
+	#总结：REPEATABLE READ　当前事务不能读到其它事务提交的数据，不会出现：脏读，不可重复读，但可能出现：幻读
+	
+
+//业务四：测试SERIALIZABLE
+	#张三用其智能手机的手机银行客户端查询其招行帐户余额为99.9元，但他需要100元才能支付抢购，
+	#他QQ告知老婆在线等待，他老婆立马找到一个ATM机准备向其帐户上汇入了100元，但钱就是汇不进去。
+
+	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+	SELECT @@tx_isolation;
+
+	t1:
+		BEGIN;
+		SELECT * FROM bankaccount WHERE id='123456';
+	t2: 空闲
+
+	#总结：SERIALIZABLE　当前事务在执行的过程中，其它任何事务都无法执行，
+	　#不会出现：脏读，不可重复读，幻读（无法并发操作了，效率太低）

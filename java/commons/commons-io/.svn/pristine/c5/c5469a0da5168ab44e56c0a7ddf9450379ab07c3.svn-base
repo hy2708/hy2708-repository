@@ -1,0 +1,67 @@
+package org.hy.commons.io.core;
+
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.hy.commons.lang.string.StringUtil;
+import org.hy.commons.lang.string.WildcardUtil;
+
+import jodd.io.findfile.FindFile;
+import jodd.io.findfile.WildcardFindFile;
+
+public class FindFileUtil {
+
+	public static List<File> findFiles(String searchPath,String fileName) {
+		return findFiles(searchPath, null, fileName);
+	}
+	
+	public static List<File> findFiles(String searchPath,String keyPath,String fileName) {
+		return findFilesByWildCard(searchPath, keyPath, fileName);
+	}
+	
+	public static List<File> findFilesByWildCard(String searchPath,String keyPath,String fileName) {
+		FindFile ff = new WildcardFindFile()
+		//.include("**/*file/a*")
+		//.include(keyPath)
+		.setRecursive(true)
+		.setIncludeDirs(true)
+		.searchPath(searchPath)
+		;
+		/*if (StringUtil.isNotEmpty(keyPath)) {
+			ff.include(keyPath);
+		}
+		ff.searchPath(searchPath);
+		*/
+		List<File> list = new  LinkedList<File>();
+		File f;
+		while ((f = ff.nextFile()) != null) {
+			if (f.isDirectory() == true) {
+				
+			} else {
+				
+				String path = f.getAbsolutePath();
+				path = FileNameUtil.separatorsToUnix(path);
+				
+				String fullName =FileNameUtil.getName(path);
+				StringBuilder builder = new StringBuilder();
+				if (WildcardUtil.hasWildcard(fileName)) {					
+					if (WildcardUtil.match(fullName, fileName)) {
+						list.add(f);
+					}
+				}else {
+					if (StringUtil.containsIgnoreCase(fullName, fullName)) {
+						list.add(f);
+					}
+					
+				}
+			}
+		}
+		
+		return list;
+
+	}
+}

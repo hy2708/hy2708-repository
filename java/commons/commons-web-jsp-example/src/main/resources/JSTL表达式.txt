@@ -1,0 +1,60 @@
+1、使用标签库的流程
+	* 导包（Myeclipse自带）
+	* 在当前的JSP页面中声明引用
+		* <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="cc"%>
+		* taglib指令：确定所使用的标签库
+			* uri：确定使用的标签库，具体的名称
+			* prefix：为当前标签库起一个别名
+	* 使用
+		* <prefix:xxx
+2、域对象操作
+	* set：给web域设置值的
+		var 属性：属性的名称
+		value属性：属性的值
+		scope属性：确定作用域
+			* page
+			* request
+			* session
+			* application
+	
+	* remove：删除指定名称的web域的值
+		* var属性：确定名称
+		* 注意：删除所有作用域的内容
+	* out：将内容输出
+		* value:指定内容
+			* 注意：可以使用EL表达式
+		* escapeXml:是否转移html规定的字符
+			* 默认值true，转移
+		* default：当前输出内容为空时，显示默认值
+	* 涉及页面：
+		* day09/WebRoot/coreTag.jsp
+		
+3、数据操作
+	* if标签：逻辑判断
+		* test属性：逻辑值true|false
+			* 支持EL表达式
+	* choose标签：确定一组可以进行选择的显示结果
+		* 必须放置when标签
+		* 子标签
+			* when标签：逻辑判断
+				* test属性：填写逻辑值
+			* otherwise标签：处理没有处理项，默认项
+	* forEach标签：进行迭代,每一条信息将显示在标签体
+		* items属性：确定遍历的对象
+			* 支持EL表达式
+		或
+		* begin属性：
+		* end属性：
+		* 共有
+			* var属性：确定遍历变量
+			* step属性：步长
+		* 作业：99乘法表
+	* 涉及页面
+		* day09/WebRoot/coreTag2.jsp
+		* foreach练习：day09/WebRoot/core_forEach.jsp
+		
+		
+		
+		
+		
+		

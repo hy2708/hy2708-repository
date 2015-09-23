@@ -1,0 +1,18 @@
+1 得到Connection对象的三种方式
+	 * url组成
+	 *Class.forName()
+2 使用Statement对象
+	*用它执行DDL DML
+	*用它执行DQL操作
+	*操作student表的dao
+	*帮助类JDBCUtils  getConnection() closeResource(conn,stateemnt,rs)
+3 ResultSet
+	取出其中的数据next() getXX()
+	滚动性(mysql,oracle)
+4 PreparedStatement
+	*用它进行CRUD操作　
+	操作PreparedStatement student表的dao
+	*比较PreparedStatement与statement
+		1 简洁性 ?
+		2 sql注入　
+		3 效率（mysql ------------------oracle）

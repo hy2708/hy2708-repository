@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<parent>
+		<groupId>org.hy.commons</groupId>
+		<artifactId>commons-base</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../commons-parent/pom.xml</relativePath>
+	</parent>
+
+
+	<groupId>org.hy.commons.web</groupId>
+	<artifactId>commons-web</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>commons-web</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mvn.jstl.version>1.2</mvn.jstl.version>
+	</properties>
+
+	<dependencies>
+		
+		<!-- 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1-b02</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.cactus</groupId>
+			<artifactId>cactus.core.framework.javaEE.12-13-14</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+		
+		 -->
+
+		
+
+		<dependency>
+			<groupId>org.hy.commons.io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.server</groupId>
+			<artifactId>server-jetty8</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${mvn.jstl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- 
+			<version>4.11</version>
+			<scope>test</scope>
+			 -->
+		</dependency>
+	
+            
+		
+		<!-- 
+		<dependency>
+			<groupId>rhino</groupId>
+			<artifactId>js</artifactId>
+			<version>1.7R2</version>
+		</dependency>
+		 -->
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.commons.web</groupId>
+			<artifactId>commons-web-test</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.commons.net</groupId>
+			<artifactId>commons-net-http</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,5 @@
+webservice
+1、是以Http协议为载体，发送XML格式（符合SOAP命名空间的元素的使用规则）的文本内容
+           用浏览器打开之后，只会显示文本部分。http部分不会显示的
+2、= http + xml
+soap是用http传输的文本协议

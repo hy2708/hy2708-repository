@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <servlet>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>cn.itcast.servlet.TestServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/servlet/TestServlet</url-pattern>
+  </servlet-mapping>
+ 
+ 
+ <!-- 注册jsp -->
+ <servlet>
+ 	<servlet-name>jspfile</servlet-name>
+ 	<jsp-file>/obj.jsp</jsp-file>
+ 	<init-param>
+ 		<param-name>user</param-name>
+ 		<param-value>lt</param-value>
+ 	</init-param>
+ </servlet>
+ 
+ <!-- 映射 -->
+ <servlet-mapping>
+ 	<servlet-name>jspfile</servlet-name>
+ 	<url-pattern>/jsp</url-pattern>
+ </servlet-mapping>
+ 
+ <!-- 
+ 	1、使用tomcat，servlet引擎
+ 		http://localhost:8080/day08/obj.jsp
+ 	2、自定义访问路径
+ 		http://localhost:8080/day08/jsp
+  -->
+ 
+ 
+ 
+ 
+</web-app>

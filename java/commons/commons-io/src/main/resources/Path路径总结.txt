@@ -1,0 +1,45 @@
+1、Path总结【★★★★】
+	1、java项目
+		1 File file = new File("");
+			* 使用java命令，输出路径是，当前java命令停留的盘符
+				* F:\workspaces\20120909\day06_java\bin
+			* 使用myeclipse或eclipse运行时
+				* F:\workspaces\20120909\day06_java
+		2 File file = new File("/");
+			* 获得当前盘符
+				* F:\
+		3 URL url = Hello.class.getClassLoader().getResource("");
+			* 获得路径，使用类加载器
+				* F:/workspaces/20120909/day06_java/bin/
+				* 当前类被加载时，所在的文件根目录
+		4 URL url = Hello.class.getClassLoader().getResource("/");
+			* 不能使用
+				* null
+	2、web项目
+		1、通过servletcontext获得文件
+			* 获得实际路径
+				* sc.getRealPath("/1.html");
+			* 获得URL
+				* URL url = sc.getResource("/1.html"); 
+			* 获得流【**】
+				* InputStream is = sc.getResourceAsStream("/1.html");
+				* WebRoot/page/abc/2.html  -- path:/page/abc/2.html
+		2、web的相对路径★★
+			* 前提：相对当前的页面1.html
+			* 使用分类：
+				1、abc:与当前页面同级的目录或servlet的名称
+					同级，指的是，Url路径的同级，不是物理路径
+					* <a href="c/c.html">c.html</a><br>
+				2、/abc:相对于web站点，%tomcat%/webapps/
+					* <a href="/day06_web/b/c/c.html">c.html</a><br>
+					注意：应该在html页面设置一个base？？？
+				3、./abc:当前目录，与第一种情况相同★★
+					* <a href="./c/c.html">c.html</a><br>
+				4、../abc:上一次目录★★
+					* <a href="../b/c/c.html">c.html</a><br>
+				总结：操作过程
+					当前页面：http://localhost:8080/day06_web/b/b.html
+					目标页面：http://localhost:8080/day06_web/b/c/c.html
+					/ -- webapps  -- http://localhost:8080
+		3、
+

@@ -1,0 +1,174 @@
+Date:
+	
+	CST:
+	
+	Date d = new Date();
+	
+	DateFormat:  SimpleDateFormat:
+	
+	String str = "yyyy-MM-dd HH:mm:ss E";
+	SimpleDateFormat sdf = new SimpleDateFormat();
+	sdf.applyPattern(str);
+	
+	
+	Date -- >  String
+	
+	String d = sdf.format(new Date());
+		
+	String --> Date
+		
+		Date d = sdf.parse(d);
+		
+Calendar:
+	
+	抽象类:
+		Calendar  getInstance();
+	
+	
+	int get(int field):获得指定字段的值
+	
+	field可取值,就是Calendar类里常量:
+	
+	Calendar.YEAR;
+			.MONTH;
+			.DATE;
+			.HOUR_OF_DAY;
+			.MINUTE;
+			.SECOND;
+			
+	使用 StringBuilder 拼一个当前系统时间;
+	
+	Calendar c = Calendar.getInstance();
+	c.setTime(new Date());
+	StringBuilder sb = new StringBuilder("MYCST:");
+	
+	int y = c.get(Calendar.YEAR);
+	int m = c.get(Calendar.MONTH) + 1;
+	int d = c.get(Calendar.DATE);
+	int h = c.get(Calendar.HOUR_OF_DAY);
+	int mm = c.get(Calendar.MINUTE);
+	int s = c.get(Calendar.SECOND);
+	sb.append(y).append("年")
+	.append(m).append("月");
+	......
+	;
+	
+	void  setTime(Date d);
+	
+	Date  getTime();
+	
+	/*
+		字段值的偏移
+	*/
+	void add(int filed,int offset);
+	
+		若offset为负数:  表明filed所表示的字段值往前偏移 offset;
+		若offset为正数数:  表明filed所表示的字段值往后偏移 offset;
+		
+	
+	
+	set(int field ,int val):给一个字段设置值
+	
+	
+	set(int year,int mon, int date,int hour,int min, int s);
+	
+	
+	时间段设置:  最近两天;  2012 - 7 - 24: 09:24:11
+	
+		开始时间 beginTime:  2012 - 7 - 23: 00:00:00
+		结束时间 endTime:    2012 - 7 - 24: 23:59:59
+		
+		
+		queryTime >= beginTime && queryTime <= endTime
+
+System:
+	void arraycopy(Object src, int pos, Object dest, int destPos ,int length);
+	
+	
+	void exit(int status);
+	系统退出:
+		始终都要退出: System.exit(0);
+		1表示遇见异常退出
+	
+	void gc();强制垃圾回收
+	
+	static String getenv(String name) 
+          获取指定的环境变量值。 
+
+
+Runtime:	
+	Process exec(String command) 
+          在单独的进程中执行指定的字符串命令。
+
+			
+		Runtime.getRuntime().exec("notepad.exe ooxx.java");
+			表示以记事本的方式打开ooxx.java文件
+	
+
+正则表达式:	
+
+java.util.regex包;
+
+	Pattern:  表示规范
+	Matcher:  表示执行规范
+
+	String input = "需要判断的数据";
+	String regex = "规范";l
+	
+	Pattern p = Pattern.compile(regex);
+	
+	Matcher m= p.matcher(CharSequence cs);
+	
+	boolean b = m.matches();
+	
+	static boolean matches(String regex, CharSequence input)  
+	
+	---------------------------------
+	b = Pattern.matches(regex,input);
+	
+	---------------------------------
+	
+	String类:
+	
+		boolean  matches(String regex){
+			return Pattern.matches(regex,this);
+		}
+	boolean b = input.matches(regex);
+	
+	
+
+创建启动线程的两种方式:
+	1. 继承方式
+		(1). 新建一个类MyThread 继承 java.lang.Thread
+		(2). 覆写 public  void run(){}
+		(3). 创建线程:  MyThread t = new MyThread();
+		(4). 启动线程:  t.start();
+	2. 实现方式 (推荐方式),使用匿名内部类来创建
+		(1). 新建一个类MyRunnable 实现 java.lang.Runnable接口
+		(2). 实现 public void  run(){}
+		(3). 创建线程:  Thread  t = new Thread(new MyRunnable());
+		(4). 启动线程:  t.start();
+		
+	二者的区别:
+		继承方式资源不能共享,以后就不能再继承其他类了; 简单,
+		
+	
+	常用方法:
+		String getName();
+		void setName();
+		
+		Thread t = Thread.currentThread();
+		
+		
+		
+		Thread();
+		Thread(String name);
+		
+		Thread(Runnable target);
+		Thread(Runnable target, String name);
+		
+	
+
+
+
+	

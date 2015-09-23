@@ -1,0 +1,71 @@
+package org.hy.commons.web.example.filter.request;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.hy.commons.io.compression.GZipUtil;
+import org.hy.commons.io.core.ProjectPathUtil;
+import org.hy.commons.lang.RandomUtil;
+
+import org.hy.commons.web.filter.compression.GzipCompressionFilter;
+import org.hy.commons.web.http.HttpClientUtil;
+import org.hy.commons.web.response.HttpServletResponseUtil;
+import org.hy.commons.web.servlet.HttpServletUtil;
+import org.hy.commons.web.servlet.compression.GZipServletUtil;
+import org.hy.server.jetty8.JettyUtil;
+
+public class TestCompressionServlet extends HttpServlet{
+
+	
+	public static void main(String[] args) throws InterruptedException {
+		JettyUtil.getServer();
+		JettyUtil.setAppContextPath(JettyUtil.MY_APP, ProjectPathUtil.getWebRootPath());
+		JettyUtil.getWebAppContext().addFilter(GzipCompressionFilter.class, "/*", JettyUtil.getDispatcherTypes());
+		JettyUtil.getWebAppContext().addServlet(TestCompressionServlet.class, JettyUtil.HELLO);
+//		JettyUtil.getWebAppContext().addServlet(TestRequestServlet.class, "/testRequestServlet");
+		JettyUtil.startServer();
+
+//		String content = HttpClientUtil.visitUrl(JettyUtil.WHOLE_URL);
+//		Thread.sleep(1000);
+
+//		JettyUtil.stopServer();
+//		System.err.println(content);
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		HttpServletResponseUtil.setContentType(resp, "utf-8");
+		
+		StringBuffer stringBuffer = new StringBuffer();
+		for (int i = 0; i < 100; i++) {
+			stringBuffer.append("abcde");
+		}
+		
+		PrintWriter writer = resp.getWriter();
+		System.err.println(writer);
+		writer.write(stringBuffer.toString());
+		
+		
+//		OutputStream writer = resp.getOutputStream();
+//		System.err.println(writer);
+//		writer.write(stringBuffer.toString().getBytes("utf-8"));
+		
+		
+		
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
+	}
+
+}

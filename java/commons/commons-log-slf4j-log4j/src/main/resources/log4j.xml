@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+  
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' >
+  
+	<appender name="myWarnConsole" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug"/>  
+		<param name="target" value="System.err"/>  
+		<layout class="org.apache.log4j.PatternLayout">
+		<!--
+		%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，
+		比如：%d{yyy-M-dd HH:mm:ss }，输出类似：2002-10-18- 22：10：28 
+		%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL。如果是调用debug()输出的，则为DEBUG，依此类推
+		%t 输出产生该日志事件的线程名
+		%c 输出日志信息所属的类的全名
+		%f 输出日志信息所属的类的类名
+		%l 输出日志事件的发生位置，即输出日志信息的语句处于它所在的类的第几行
+		%m 输出代码中指定的信息，如log(message)中的message
+		%n 输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”
+		%r 输出自应用启动到输出该日志信息所耗费的毫秒数
+				  		value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{2\}-%l - %m%n" />
+		
+		 -->
+		 	<param name="ConversionPattern"  
+				  		value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{1\} - %m -%l%n" />
+		</layout>
+		<!--过滤器设置输出的级别-->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="warn" />
+			<param name="levelMax" value="fatal" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+
+	<appender name="myInfoConsole" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug"/>  
+		<param name="target" value="System.out"/>  
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- 
+		%d{HH:mm:ss,SSS} %p %t %c %L %m%n %-5p [%c] - %m%n
+				  		value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{2\}-%l - %m%n" />
+		
+		 -->
+		 	<param name="ConversionPattern"  
+				  		value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{1\} - %m -%l%n" />
+		</layout>
+		<!--过滤器设置输出的级别-->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="info" />
+			<param name="levelMax" value="info" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+	
+	<appender name="myDebugConsole" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug"/>  
+		<param name="target" value="System.out"/>  
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- 
+		%d{HH:mm:ss,SSS} %p %t %c %L %m%n %-5p [%c] - %m%n
+				  		value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{2\}-%l - %m%n" />
+		
+		 -->
+		 	<param name="ConversionPattern"  
+				  		value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{1\} - %m   --[%l%n" />
+		</layout>
+		<!--过滤器设置输出的级别-->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="debug" />
+			<param name="levelMax" value="debug" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+
+	<appender name="myFile" class="org.apache.log4j.RollingFileAppender">  
+		<param name="File" value="D:/output.log" /><!-- 设置日志输出文件名 -->
+		<!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="Append" value="true" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%p (%c:%L)- %m%n" />
+		</layout>
+	</appender>
+ 
+	<appender name="activexAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="E:/activex.log" /> 
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" /> 
+		<layout class="org.apache.log4j.PatternLayout">
+		 <param name="ConversionPattern" 
+			value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+		</layout> 
+	</appender>
+  
+	<!-- 指定logger的设置，additivity指示是否遵循缺省的继承机制-->
+	<!-- 
+	 -->
+	<logger name="org.hy" additivity="false">
+		 <level value="debug" /> 
+		<!-- 
+		<priority value ="debug"/> 
+		<appender-ref ref="activexAppender" /> 
+		 -->
+		<appender-ref ref="myDebugConsole"/>
+		<appender-ref ref="myInfoConsole"/>
+		<appender-ref ref="myWarnConsole"/>		 
+	</logger>
+
+	<!-- 根logger的设置-->
+	<root>
+		<priority value ="info"/>
+		<appender-ref ref="myDebugConsole"/>
+		<appender-ref ref="myInfoConsole"/>
+		<appender-ref ref="myWarnConsole"/>
+		<!-- 
+		<appender-ref ref="myFile"/>	
+		 -->
+	</root>
+</log4j:configuration>

@@ -1,0 +1,3 @@
+回调主类QueryRunner
+回调规范ResultSetHandler
+回调函数BeanListHandler extends ResultSetHandler

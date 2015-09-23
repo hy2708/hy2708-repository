@@ -1,0 +1,16 @@
+Xw6CH3bD8eT9
+
+
+Proxy.newProxyInstance(loader, interfaces, handler)
+interfaces(interface) 搭建代理类的框架（反射：循环产生接口中的方法）
+	生成的代理类proxy中的每个方法中，都包含handler.invoke(this(即proxy),method,args)
+handler 处理被代理对象的，处理逻辑类（例如：日志与安全验证）
+handler.invoke(proxy,method,args)
+	proxy:生成的代理类
+	meithod:接口中的方法之一（循环遍历）
+	args:方法中的参数
+	通常，handler中包含一个被代理对象（delegate）,
+	handler.invoke()的方法体中，包含语句:method.(delegate,args)
+	注意：proxy 不同于 delegate 对象
+InvocationHandler与InvocationHandler中的public Object invoke(Object proxy, Method method, Object[] args)
+类似于模板方法设计模式,例如应用在静态代理中的不同处理逻辑（InvocationHandler）切换

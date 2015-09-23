@@ -1,0 +1,133 @@
+编辑：  将c源代码 编辑成 2进制文件（中间文件）  windows .obj  	linux .o
+
+链接： 中间文件 通过链接 生成可执行的 2进制文件   windows .exe  (.dll 动态链接库文件) linux 
+
+
+android linux系统  调用C代码
+
+虚拟机 模拟出 linux系统环境 linux运行的代码（2进制文件）
+
+
+Cygwin: 在windows 平台下 模拟出linux系统的环境  (由插件组成的)
+
+在linux系统中跑的代码
+
+x86结构： Intel Amd	电脑 
+
+arm结构： arm 		手机
+
+编辑出 手机上跑的代码
+平台：	linux   arm
+
+
+google 	 NDK (native develop kits )   Ndk_build  实现编辑出 手机运行的代码（2进制文件）
+
+
+交叉编译：  在当前平台下 （windows  x86体系） ，编辑出 另一个平台上(linux arm体系) 可以运行的2进制文件
+
+
+
+C:\cygwin\etc
+
+proFile 
+23行
+PATH="/usr/local/bin:/usr/bin:${PATH}:/cygdrive/d/android-ndk-r7b"
+
+
+sun jdk javah 实现生成java中native方法的声明
+
+
+
+android.mk
+
+LOCAL_PATH := $(call my-dir)
+//记录android.mk文件的位置 
+
+call my-dir
+//得到当前目录 （绝对目录）
+
+
+include $(CLEAR_VARS)
+//初始化参数信息
+
+CLEAR_VARS
+//清空上次参数信息
+
+
+LOCAL_MODULE    := hello-jni
+//指定交叉编译后 生成 可执行文件 名称
+
+LOCAL_SRC_FILES := hello-jni.c xx1.c  xx2.c  
+//指定哪些C\C++源文件 参与交叉编译
+
+include $(BUILD_SHARED_LIBRARY)
+//指定交叉编译后 生成 可执行文件 的文件类型
+
+BUILD_SHARED_LIBRARY  动态链接库
+BUILD_STATIC_LIBRARY  静态链接库
+
+动态链接库和 静态链接库 的区别
+	文件后缀名
+动态    .so	(windows .dll)  C:\Windows\System32\ xx.dll	dll之家
+
+	文件的大小
+	小
+
+
+静态	.a
+	大
+
+
+libHello.so
+
+lib 函数库
+Hello 库名
+.so 后缀名 （文件类型）
+
+
+**********************************************************************
+JNI开发 常见问题处理
+
+1\12-06 03:46:12.230: E/AndroidRuntime(400): Caused by: java.lang.UnsatisfiedLinkError: hello
+
+	java方法名 和c中实现的方法名 不一致
+	
+	链接库 是否已加载
+
+
+
+	12-06 03:57:34.230: E/AndroidRuntime(459): Caused by: java.lang.UnsatisfiedLinkError: Library Hell0 not found
+
+	加载的函数库名称 和生成函数库（动态链接库）名称不一致	
+
+2、Error1
+	D:/workspace/Ndk2/jni/Hello.c:6: error: parameter name omitted
+	方法的参数信息 没有指定
+
+
+3\绿色Debug  
+	检查C代码中是否出现了逻辑性问题
+
+
+
+ javap -s 包名.类名   得到方法的签名
+
+public native void callback1();
+  Signature: ()V
+public native void callback2();
+  Signature: ()V
+public native void callback3();
+  Signature: ()V
+public void helloFromJava();
+  Signature: ()V
+public int Add(int, int);
+  Signature: (II)I
+public void printString(java.lang.String);
+  Signature: (Ljava/lang/String;)V
+
+
+
+
+
+
+

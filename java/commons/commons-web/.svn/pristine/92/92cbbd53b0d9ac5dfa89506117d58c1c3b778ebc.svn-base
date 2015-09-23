@@ -1,0 +1,24 @@
+表单的enctype的属性，有两种
+enctype=application/x-www-from-urlencoded
+enctype=“multipart/form-data”
+
+enctype(Content-type)对提交的request的影响：
+对请求头
+对请求体
+
+enctype(Content-type)在（GET或者POST）方法中，对提交的request的影响：
+enctype，在GET方法中，对请求头和请求体，没有影响
+enctype，在POST方法中，对请求头和请求体，有影响
+	对请求头的影响contentType=application/x-www-from-urlencoded
+	对请求体的影响xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	
+	文件上传
+	对请求头的影响contentType=“multipart/form-data”;boundary=--------------数字xxxxx
+	对请求体的影响
+	--------------数字xxxxx
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	--------------数字xxxxx--
+	
+	
+<input type="file" />不能上传提交
+<input type="file" name="file"/>可以上传提交

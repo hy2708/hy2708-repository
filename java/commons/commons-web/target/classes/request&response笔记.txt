@@ -1,0 +1,176 @@
+1、Path总结【★★★★】
+	1、java项目
+		1 File file = new File("");
+			* 使用java命令，输出路径是，当前java命令停留的盘符
+				* F:\workspaces\20120909\day06_java\bin
+			* 使用myeclipse或eclipse运行时
+				* F:\workspaces\20120909\day06_java
+		2 File file = new File("/");
+			* 获得当前盘符
+				* F:\
+		3 URL url = Hello.class.getClassLoader().getResource("");
+			* 获得路径，使用类加载器
+				* F:/workspaces/20120909/day06_java/bin/
+				* 当前类被加载时，所在的文件根目录
+		4 URL url = Hello.class.getClassLoader().getResource("/");
+			* 不能使用
+				* null
+	2、web项目
+		1、通过servletcontext获得文件
+			* 获得实际路径
+				* sc.getRealPath("/1.html");
+			* 获得URL
+				* URL url = sc.getResource("/1.html"); 
+			* 获得流【**】
+				* InputStream is = sc.getResourceAsStream("/1.html");
+				* WebRoot/page/abc/2.html  -- path:/page/abc/2.html
+		2、web的相对路径
+			* 前提：相对当前的页面1.html
+			* 使用分类：
+				1、abc:与当前页面同级的目录或servlet的名称
+					* <a href="c/c.html">c.html</a><br>
+				2、/abc:相对于web站点，%tomcat%/webapps/
+					* <a href="/day06_web/b/c/c.html">c.html</a><br>
+				3、./abc:当前目录，与第一种情况相同
+					* <a href="./c/c.html">c.html</a><br>
+				4、../abc:上一次目录
+					* <a href="../b/c/c.html">c.html</a><br>
+				总结：操作过程
+					当前页面：http://localhost:8080/day06_web/b/b.html
+					目标页面：http://localhost:8080/day06_web/b/c/c.html
+					/ -- webapps  -- http://localhost:8080
+		3、
+
+
+2、ServletContext
+	* 对当前web项目上下文的描述(对当前web项目所有内容的描述)，有tomcat在启动时创建，tomcat关闭时销毁。
+		* servlet -- > init(ServletConfig)  --> config.getServletContext();
+		* 当前servlet的所在的项目
+	* tomcat，为每一个web项目单独创建一个区域，用来管理整个项目。此区域成为ServletContext
+	* 管理当前项目【*****】
+		* 获得实际路径，要求必须/开头
+			* sc.getRealPath("/1.html");
+		* 操作数据
+			* add set get remove delete
+			* setAttribute/getAttribute/removeAttribute
+			* ServletContext对象对所有的servlet共享数据
+		* 给当前web项目配置内容【**】
+			* 配置文件的位置：web.xml
+			* 配置内容
+				<context-param>
+					<param-name>username</param-name>
+					<param-value>root</param-value>
+				</context-param>
+			* 如何读取
+				
+	* context root
+		* 当前ServletContext所指web项目的根
+			* tomcat --> webapps/webName/
+			* myeclipse -->webName/WebRoot/
+
+
+
+
+
+3、ServletResponse
+	* 服务器对浏览器做出的响应，将需要发送给浏览器的所有数据全部存放在此对象上。
+	* 发送数据，使用流操作，将所需要的数据，存放在指定的流中，数据将显示到浏览器中
+		* 字符流
+			* response.getWriter();
+		* 字节流
+			* response.getOutputStream();
+		* 当使用getOutputStream时，不能使用getWriter
+			* getOutputStream() has already been called for this response
+		* 当使用getWriter时，不能使用getOutputStream
+			* getWriter() has already been called for this response
+		* 总结：两个流同时只能使用一个
+	* 字节流：getOutputStream，一般在程序中使用具有拷贝功能等
+		* 发送中文
+			* 不能发送
+				* out.print(data); 不能发送中文数据 
+				* 异常信息：java.io.CharConversionException Not an ISO 8859-1 character: 中
+			* 可以发送
+				* out.write(data.getBytes("UTF-8"));
+	* 字符流：getWriter，一般在程序中发送数据内容
+		* 发送中文
+			* out.println("中文");
+	* 乱码【****】
+		* response.setContentType("text/html;charset=utf-8");
+		* 通知tomcat和浏览器发送数据的编码
+		* 注意：
+			* 设置编码时，必须放置在需要输出语句之前，建议放置在doGet或doPost第一行
+		* 实例：cn.itcast.response.FormServlet
+		
+
+4、ServletRequest
+	* 浏览器向服务器的请求（浏览器将数据发送给服务器时，数据存放的地方）
+	* 请求方式：GET和POST
+		* GET：发送的数据，追加在请求的URL之上
+		* POST：发送的数据在HTTP请求体中
+	* 浏览器发送数据
+		* 表单form，
+			* method属性：指定的请求方式
+			* action属性：接收数据的程序路径
+	* 服务器获得浏览器发送的数据
+		* 获得单个数据
+			* request.getParameter("username");
+		* 获得一组数据
+			* request.getParameterValues("love");
+		* 处理中文乱码
+			* request.setCharacterEncoding("UTF-8");
+			* 注意：
+				* 此方法只对POST请求有效，GET需要单独处理
+				* 需要放置在获得数据之前，建议放在第一个行
+				
+6、ServletResponse和ServletRequest的编码问题（都是针对字符的传输），对比
+【★★★★】乱码，有两种，
+	服务器端乱码
+	浏览器端乱码
+	★★一种是，某些字符（例如：中文），被保存或者传输时，所用的字符集，不能表示该字符，例如：用IOS8859-1，表示中文的时候
+	★★另一种是，某些字符（例如：中文），被保存或者传输时，所用的字符集，与，被打开的时候，不一致，也会产生（阅读的时候的）乱码，例如：用UTF-8存储中文，但是，打开的时候，却使用GBK
+	*(HTTP的请求行)浏览器中的Url字符串本身，传输过去的，是用字符流传输，使用的字符集是IOS8859-1（我目前认为，该字符集是固定的）
+		*浏览器地址栏不支持服中文:因为，IOS8859-1是西欧的字符集，不支持中文，所以，浏览器地址栏不能舒服中文
+		*也因此，Servlet的doGet方法中，获取中文比较麻烦。
+				*request.getParameter()方法获得的，肯定不是中文
+				*方法1，需要，把中文，按照str.getBytes("iso8859-1")获得XXXXXXXXXX
+		*而，Servlet的doPost方法，只需要设置request.setCharacterEncoding("UTF-8")就可以了
+	*1ServletResponse，是把*文件*写入到客户端的浏览器的临时文件夹里（也就说，浏览器下载文件）
+	*2ServletRequest，		
+		GET方法，是通过输入浏览器的url地址,进行参数的追加，传输到服务器（tomcat）
+		POST方法，是通过输入浏览器的url地址，的请求体，传输到服务器（tomcat）
+		
+		
+5、扩展：查看API
+	* Request  --> javax.servlet.ServletRequest ,javax.servlet.http.HttpServletRequest
+	* Response
+		
+		
+	
+	
+	
+*转发*，*重定向*，与*刷新*页面
+在购物的时候，如果用转发的方式，在刷新页面的时候，会重复购买
+在购物的时候，如果用重定向的方式，在刷新页面的时候，不会重复购买
+	
+	
+getRequestURL方法返回客户端发出请求时的完整URL。
+getRequestURI方法返回请求行中的资源名部分。
+getQueryString 方法返回请求行中的参数部分。
+getRemoteAddr方法返回发出请求的客户机的IP地址
+getRemoteHost方法返回发出请求的客户机的完整主机名
+getRemotePort方法返回客户机所使用的网络端口号
+getLocalAddr方法返回WEB服务器的IP地址。
+getLocalName方法返回WEB服务器的主机名
+getMethod得到客户机请求方式
+获得客户机请求头
+getHead(name)方法 
+getHeaders(String name)方法 
+getHeaderNames方法 
+获得客户机请求参数(客户端提交的数据)
+getParameter(name)方法
+getParameterValues（String name）方法
+getParameterNames方法 
+getParameterMap方法  //做框架用，非常实用
+getInputStream	
+	
+	

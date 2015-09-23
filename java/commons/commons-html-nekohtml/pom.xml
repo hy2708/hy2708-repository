@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.hy.commons</groupId>
+		<artifactId>commons-base</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../commons-parent/pom.xml</relativePath>
+	</parent>
+	
+	<groupId>org.hy.commons.html</groupId>
+	<artifactId>commons-html-nekohtml</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>commons-html-nekohtml</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+	<dependency>
+	<groupId>httpunit</groupId>
+	<artifactId>httpunit</artifactId>
+	<version>1.7</version>
+	</dependency>
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>1.9.18</version>
+		</dependency>
+		<dependency>
+			<groupId>it.svario.xpathapi</groupId>
+			<artifactId>xpathapi-jaxp</artifactId>
+			<version>0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.commons.io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.commons.xml</groupId>
+			<artifactId>commons-xml-dom4j</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-lagarto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mozilla</groupId>
+			<artifactId>rhino</artifactId>
+			<version>1.7R4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.commons.net</groupId>
+			<artifactId>commons-net-http</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hy.commons.log</groupId>
+			<artifactId>commons-log.slf4j-log4j</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

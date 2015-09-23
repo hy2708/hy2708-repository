@@ -1,0 +1,112 @@
+String:	表示不可变的类,非常常用:
+	
+	判断创建了几个String对象:
+	
+	
+	String  s  = new  String("OOXX");
+	
+	1个或两个:
+	若常量池里已经存在"OOXX",那么直创建一个String对象
+	若常量池里没有"OOXX",那么先在常量池创建"OOXX",再在堆里创建一个String对象;
+	
+	
+	
+	String  s = "A"+"B"+"C";
+	编译的时候,把"A"+"B"+"C",转成了 "ABC";
+	
+	String  s2 = s + "AA";在运行期的时候会创建"ABCAA"
+	
+	常用方法参见API ;
+	
+
+
+StringBuffer/StringBuilder:
+	表示可变的字符串;
+	StringBuffer/StringBuilder区别:
+	StringBuffer:线程安全的,适合用于多线程中,但是性能低一点;
+	StringBuilder(java5): 线程不安全的,适合用于单线程中,性能高一点; 官方推荐使用的
+	
+	append(Object o):表示在其对象的内容后面追加新的内容,
+	
+	适用于 拼写字符串,其性能远远高于String;
+	
+	常用方法参见API ;
+	
+
+Math:
+	封装了数学上的很多公式,算法那些;
+	
+	常量:   double e  = Math.E;  double pi = Math.PI;
+	
+	伪随机数:    Math.random();//生成[0.0,1.0)之间的一个随机数
+	
+	
+	静态导入: 导入的是一个类里面的静态成员:
+			import  static  java.lang.Math.PI;
+			import  static  java.lang.Math.*;
+	
+
+Random:
+	new  Random().nextXxx(int max);//表示[0,max)之间的一个伪随机数
+	
+UUID:
+	表示128位的唯一的字符串
+	
+	UUID uuid = UUID.randomUUID();
+	
+	String uid = uuid.toString();
+	
+	适合用于做数据库的主键;
+	
+
+BigInteger:
+	大整型:  
+		创建对象:  new  BigInteger(String val);
+		
+	BigInteger add(BigInteger otherVal);
+	
+	BigInteger subtract(BigInteger val)  
+	
+	BigInteger multiply(BigInteger val)  
+	
+	BigInteger divide(BigInteger val)  	
+	
+BigDecimal:
+	可表示任意精度的数据:
+	
+	new BigDecimal(double val);//依然不能精确表示数据
+	
+	new BigDecimal(String val);//才能精确,适合用于财务金钱,精度要求高的数据
+	
+	
+	BigDecimal add(BigDecimal otherVal);
+	
+	BigDecimal subtract(BigDecimal val)  
+	
+	BigDecimal multiply(BigDecimal val)  
+	
+	BigDecimal divide(BigDecimal val)  	
+	
+{
+	private BigDecaimal  total;//总金额
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

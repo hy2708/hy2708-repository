@@ -1,0 +1,71 @@
+										GET,采用什么样的编码方式,应该是由浏览器的自己确定,程序员不能设定
+										也可以用js,自己设置
+浏-览-器-----------------------------------之间传输的编码，真正是？(iso8859-1)，不知道------------------------------------------服务器
+
+输入框=url?x=x
+（GET方法，对中文编码：先变成字节，再编成字符；
+字符的编码，通过HTML页面的contentType设置）
+|
+|
+字符流-----（2、把byte变成字符）
+|			|
+|			|
+字节流-----（1、byte=0-255）
+
+GET总结
+ 完成了URL encode，那么现在的url就成了ASCII范围内的字符了，然后以iso-8859-1的编码方式转换成二进制随着请求头一起发送出去。
+ 这里想多说几句的是，对于get 方法来说，没有请求实体，含有数据的url都在请求头里面，
+ 之所以用URL encode，
+ 我个人觉的原因是：对于请求头来说最终都是要用iso-8859-1编码方式编码成二进制的101010.....的纯数据在互联网上传送，
+ 如果直接将含有中文等特殊字符做iso-8859-1编码会丢失信息，所以先做URL encode是有必要的。
+
+
+
+
+							<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+							POST,采用如上的编码方式,进行编码																	request.setCharacterEncoding("UTF-8");
+浏-览-器----------------------------------之间传输的编码，真正是？(iso8859-1)，应该是--------------------------------------------------服务器
+（POST方法，对中文【编码】：先变成字节，再编成字符；																					（POST方法，对中文【解码】：先变成字节，再编成字符；		
+字符的编码，通过HTML页面的contentType设置）																						字符的编码，通过response.setContentType("text/html;charset=gbk")设置）																							
+|																																				|
+|																																				|
+字符流-----（2、把byte变成字符）																													字符流-----（2、把byte变成字符）	
+|			|																																	|
+|			|																																	|
+字节流-----（1、byte=0-255）																													字节流-----（1、byte=0-255）	
+
+					|																							  |
+					|																							  |
+	浏览器读文件，使用的编码，用如下                                                                                     	                                                                                                                 服务器,向文件写入字符的编码     
+	response.setContentType("text/html;charset=gbk")          	       			 			 response.setContentType("text/html;charset=gbk")
+					|																							  |				
+					|--------<--------------------------------------------------------------<---------------------|	
+														|
+	|	
+-----------------------------------------------------HTML的临时文件--------------------------------------------------------------
+流程总结
+	POST总结
+		对于POST方式，表单中的参数值对是通过request body发送给服务器，
+		浏览器，会根据网页的<meta http-equiv="Content-Type" content="text/html; charset=utf-8">中指定的编码进行对表单中的数据进行编码，然后发给服务器。
+		在服务器端的程序中我们可以通过Request.setCharacterEncoding(utf-8) 设置编码，然后通过request.getParameter获得正确的数据。
+		在服务器端的程序中我们可以通过Request.setCharacterEncoding(gbk) 设置编码，然后通过request.getParameter获得乱码。
+	HTML临时文件总结
+		response.setContentType("text/html;charset=gbk")，= 实际，就是，设置了HTTP协议中的，ContentType头部信息
+		设置了服务器，用什么编码写入HTML文件
+		设置了浏览器，用什么编码读取HTML文件
+
+ie/firefox/chrome对URL参数的中文处理不一样
+在ie中需要对中文用encodeURI()编码，
+而在firefox/chrome中却不用，但在firefox/chrome中使用了编码也不会有问题，看来是firefox/chrome会自动对url参数进行utf-8编码。
+
+
+
+服务器---------------------------------------------------------------------------------------------浏-览-器
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=字符集（GBK，utf-8等）"/>，
+两个作用：
+1、 一般都认为这段代码是为了让浏览器知道用什么字符集来对网页解释，所以网站都会把它放在html代码的最前端，尽量不出现乱码，
+2、那么post 就会用此处指定的编码方式编码。其实它还有个作用就是指定form表单的post 方法提交数据的 URL encode编码方式 。
+
+

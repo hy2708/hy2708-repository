@@ -1,0 +1,5 @@
+package org.hy.commons.io.core;
+
+public class FilePathUtil extends FileNameUtil{
+
+}

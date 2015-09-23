@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.hy.commons</groupId>
+		<artifactId>commons-base</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../commons-parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>org.hy.commons.io</groupId>
+	<artifactId>commons-io</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<url>http://maven.apache.org</url>
+
+
+	<dependencies>
+
+<!-- 		
+			<dependency> 
+ 				<groupId>org.apache.commons</groupId> 
+ 				<artifactId>commons-io</artifactId> 
+ 			</dependency>	
+ -->
+									
+		<!-- 切换slf4j日志的两种实现 -->
+		<!-- <dependency> <groupId>org.hy.commons.log</groupId> <artifactId>commons-log-slf4j-logback</artifactId> 
+			<version>0.0.1-SNAPSHOT</version> </dependency> -->
+				
+		
+		<dependency>
+			<groupId>org.hy.commons.log</groupId>
+			<artifactId>commons-log.slf4j-log4j</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- 
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		 -->
+		
+
+
+
+		<dependency>
+			<groupId>org.hy.commons.lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+	
+		<dependencies>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+			
+		</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+			<!-- 
+			
+			
+			
+			 -->
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.3</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+		<plugins>
+		
+		<plugin>  
+                <artifactId>maven-source-plugin</artifactId>  
+                <version>2.2</version>  
+                <configuration>  
+                    <attach>true</attach>  
+                </configuration>  
+                <executions>  
+                    <execution>  
+                    <!-- 
+                        <phase>compile</phase>  
+                        <phase>package</phase>  
+                     -->
+                        <phase>install</phase>  
+                        <goals>  
+                            <goal>jar</goal>  
+                        </goals>  
+                    </execution>  
+                </executions>  
+            </plugin>  
+            
+			<!-- 跳过测试，直接打包，命令为 install -Dmaven.test.skip=true -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

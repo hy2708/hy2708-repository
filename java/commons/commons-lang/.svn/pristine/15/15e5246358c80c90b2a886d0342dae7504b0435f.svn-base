@@ -1,0 +1,16 @@
+package org.hy.commons.lang.string;
+
+import jodd.util.Wildcard;
+
+public class WildcardUtil extends Wildcard{
+
+	public static Boolean hasWildcard(String string) {
+		if (StringUtil.contains(string, "*")) {
+			return true;
+		}
+		if (StringUtil.contains(string, "?")) {
+			return true;
+		}
+		return false;
+	}
+}

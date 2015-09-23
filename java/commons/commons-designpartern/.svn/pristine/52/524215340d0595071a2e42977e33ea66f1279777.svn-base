@@ -1,0 +1,6 @@
+package com.hy.designpatern.observer;
+
+public interface RunListener {
+
+	public RunEvent getEvent();
+}

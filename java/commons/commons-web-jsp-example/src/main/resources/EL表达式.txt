@@ -1,0 +1,19 @@
+1、EL表达式
+	* 功能：获取数据
+	* 格式：${表达式}
+	* EL执行
+		<%@ page isELIgnored="true" %>
+			* out.write("${user}\r\n");
+		<%@ page isELIgnored="true" %>
+			 out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+	* 注意：
+		* EL表达式，依次从4个作用域中获取不同的属性值
+			* page  -- request -- session -- application
+		* EL表达式，如果属性名不存在，返回空字符串
+		
+	* EL常用对象
+		pageContext	对应于JSP页面中的pageContext对象（注意：取的是pageContext对象。）
+		pageScope	代表page域中用于保存属性的Map对象
+		requestScope	代表request域中用于保存属性的Map对象
+		sessionScope	代表session域中用于保存属性的Map对象
+		applicationScope	代表application域中用于保存属性的Map对象

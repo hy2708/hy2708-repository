@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.hy.designpatern.dynamicproxy.jdkproxy.subject"></context:component-scan>
+	<context:component-scan base-package="com.hy.designpatern.dynamicproxy.aopproxy.interceptor"></context:component-scan>
+	<bean id="proxyObject" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="ProxyTargetClass">
+			<value>false</value>
+		</property>
+		<property name="proxyInterfaces">
+			<value>com.hy.designpatern.dynamicproxy.jdkproxy.subject.BusinessInterface</value>
+		</property>
+		<property  name="target">
+			<!--<bean class="manager.PersonManagerImpl"/> -->
+			<ref bean="proxyedObject" />
+		</property>
+		
+		<property name="interceptorNames">
+			<list>
+				<value>myBeforeAdvice</value>
+				<value>myAroundInterceptor</value>
+				<value>myAfterAdvice</value>
+			</list>
+		</property>
+	</bean>
+	<!-- <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"> 
+		<property name="configLocation"> <value>ehcache.xml</value> </property> </bean> 
+		<bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"> 
+		<property name="cacheManager"> <ref local="cacheManager"/> </property> <property 
+		name="cacheName"> <value>com.rmn190.MethodCache</value> </property> </bean> 
+		<bean id="methodCacheInterceptor" class="intercepter.MethodCacheInterceptor"> 
+		<property name="cache"> <ref local="methodCache"/> </property> </bean> <bean 
+		id="methodCachePointCut" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor"> 
+		<property name="advice"> <ref local="methodCacheInterceptor"/> </property> 
+		<property name="patterns"> <list> <value>.*getList</value> </list> </property> 
+		</bean> <bean id = "personManager" class="org.springframework.aop.framework.ProxyFactoryBean"> 
+		<property name="target"> <ref local="personManagerTarget"/> </property> <property 
+		name="interceptorNames"> <list> <value>methodCachePointCut</value> </list> 
+		</property> </bean> <bean id = "personManagerTarget" class="manager.PersonManagerImpl"/> -->
+</beans>

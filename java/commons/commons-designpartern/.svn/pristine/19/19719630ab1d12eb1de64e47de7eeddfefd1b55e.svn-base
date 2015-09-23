@@ -1,0 +1,5 @@
+package com.hy.designpatern.observer.my;
+
+public interface Handler {
+	public void handle();
+}

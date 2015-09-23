@@ -1,0 +1,99 @@
+package org.hy.commons.lang.aop.proxy;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.List;
+
+import org.aspectj.lang.JoinPoint;
+import org.hy.commons.lang.ClassUtil;
+
+public class ProxyUtil {
+
+	public static <T>T getProxy(Object beProxiedObject,List<Advice> advices) {
+		return getProxy(beProxiedObject, advices.toArray(new Advice[advices.size()]));
+	}
+	public static <T>T getProxy(Object beProxiedObject,Advice[] advices) {
+		InvocationHandler handler = new AopInvocationHandler(beProxiedObject,advices);
+		return (T)getProxy(beProxiedObject, handler);
+	}
+	
+	public static Object getProxy(Object beProxiedObject,String methodName,Class functionObject,
+			String functionMethodName, Object[] functionArgs) {
+		InvocationHandler handler = null;//new MyInvocationHandler(beProxiedObject,methodName,functionObject,functionMethodName,functionArgs);
+		return getProxy(beProxiedObject, handler);
+	}
+	
+
+	
+	public static Object getProxy(Object beProxiedObject,InvocationHandler handler) {
+			//throws SecurityException, IllegalArgumentException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+		/*
+		 * 
+		Proxy.getProxyClass(loader, interfaces).newInstance(h);
+		Proxy.newProxyInstance(loader, interfaces, h);
+		 */
+		/*
+		 * Class<?> clazz = Proxy.getProxyClass(null,null);
+		Constructor<?> constructor= clazz.getConstructor(InvocationHandler.class);
+		Object proxyObject2 = constructor.newInstance(null);
+		 */
+		Object proxyObject = Proxy.newProxyInstance(beProxiedObject.getClass().getClassLoader(), beProxiedObject.getClass().getInterfaces(),
+				handler);
+		return proxyObject;
+	}
+}
+
+/*class MyInvocationHandler implements InvocationHandler{
+
+	public MyInvocationHandler(Object beProxiedObject,String methodName, Class functionObject,
+			String functionMethodName, Object[] functionArgs) {
+		super();
+		this.beProxiedObject = beProxiedObject;
+		this.methodName = methodName;
+		this.functionObject = functionObject;
+		this.functionMethodName = functionMethodName;
+		this.functionArgs = functionArgs;
+	}
+
+
+	public MyInvocationHandler() {
+		super();
+	}
+
+	Object beProxiedObject = null;
+	String methodName =null;
+	Class<?> functionObject = null;
+	String functionMethodName = null;
+	Object[] functionArgs = null;
+	
+	
+	public MyInvocationHandler(Object beProxiedObject) {
+		super();
+		this.beProxiedObject = beProxiedObject;
+	}
+
+
+	@Override
+	public Object invoke(Object proxyObject, Method method, Object[] args)
+			throws Throwable {
+		Object returnObject = null;
+
+		if (functionObject!=null) {
+			Method method2 = ClassUtil.findMethod(functionObject, functionMethodName, functionArgs);
+			for (int i = 0; i < args.length; i++) {
+				if (args[i] instanceof JoinPoint) {
+					throw new RuntimeException();
+				}
+			}
+			if (method.getName().equals(methodName)) {				
+				method2.invoke(functionObject.newInstance(), functionArgs);
+			}
+		}
+		returnObject = method.invoke(beProxiedObject, args);
+		return returnObject;
+	}
+	
+}*/

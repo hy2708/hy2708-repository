@@ -1,0 +1,5 @@
+package com.hy.designpatern.observer;
+
+public class OneRunListener {
+
+}

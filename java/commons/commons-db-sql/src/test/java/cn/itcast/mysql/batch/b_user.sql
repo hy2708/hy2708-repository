@@ -1,0 +1,6 @@
+CREATE TABLE b_user(
+id INT,
+NAME VARCHAR(20),
+PASSWORD VARCHAR(15),
+age int
+);

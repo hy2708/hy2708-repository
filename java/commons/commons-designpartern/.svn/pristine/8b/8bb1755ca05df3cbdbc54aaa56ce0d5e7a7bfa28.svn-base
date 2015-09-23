@@ -1,0 +1,14 @@
+package com.hy.designpatern.observer.my;
+
+public interface Event {
+
+	public void setSource(Object source);
+
+	public Object getSource();
+
+	//public void setEventId(Object source);
+
+	public Integer getEventId();
+
+	public void addHandler(Handler handler );
+}

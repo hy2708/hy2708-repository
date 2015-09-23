@@ -1,0 +1,29 @@
+package org.hy.commons.lang;
+
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+public class ClassLoader {
+
+	/**
+	 * @param args
+	 * @throws URISyntaxException 
+	 */
+	public static void main(String[] args) throws URISyntaxException {
+//		File file = new File("/");
+//		System.out.println("**** " + file.getAbsolutePath());
+		
+		//类加载器
+		URL url = ClassLoader.class.getClassLoader().getResource("log4j.properties");
+//		InputStream is = Hello.class.getClassLoader().getResourceAsStream("");
+		URI uri =url.toURI();
+		System.out.println(url);
+		System.out.println(url);
+		System.out.println(url.getFile());
+		
+	}
+
+}

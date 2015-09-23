@@ -1,0 +1,115 @@
+1、转发与重定向【****】
+	* 重定向：重新确定请求方向
+		* 发送者：服务器 --> 响应(response)浏览器
+		* 执行者：浏览器 --> 重新请求
+	* 转发：当前请求未完成，服务器调用另一个程序继续完成整个请求
+		* 服务器：当前程序需要获得请求调度器 RequestDispatcher
+		* forward:当调度器，协调多个servlet时，此方法返回最后一个servlet的页面输出内容。
+	* 对比
+		* 何时使用
+			* 重定向：可以指定当前web项目的URL，也可以指定其他web资源
+			* 转发：只能指定当前的web项目URL
+		* 确定使用
+			* 重定向：在第一次请求中设置值，在重定向后不能获取。两次请求，tomcat创建了两个request
+				* 完成跳转功能，选重定向
+			* 转发：设置的值可以在其他servlet或资源中使用。
+				* 多个servlet需要传递数据时，现在转发。
+		* 总结：
+			* 请求次数
+				* 重定向：请求2次，tomcat创建了两个request对象
+				* 转发：请求1次，tomcat创建了2个request对象
+					* request --> org.apache.catalina.connector.RequestFacade  -- HttpServletRequest --ServletRequest
+					* request --> org.apache.catalina.core.ApplicationHttpRequest
+									* class ApplicationHttpRequest extends HttpServletRequestWrapper {
+									* public class HttpServletRequestWrapper implements HttpServletRequest {
+									* ApplicationHttpRequest -- HttpServletRequestWrapper -- HttpServletRequest
+					* 将第一个request中的内容，拷贝给第二个request。值相同
+			* 浏览器地址栏是否修改
+				* 重定向：修改，看到跳转后页面的内容
+				* 转发：没有修改，看到的转发后最后一个servlet响应的内容
+			* request设置的值，是否共享
+				* 重定向：数据不共享
+				* 转发：数据共享
+				
+				
+2、会话：当访问web资源之后，通过连接继续请求当前站点的资源，然后关闭浏览器的整个过程。
+	* 会话技术：cookie、session
+	* cookie：将服务器的数据保存到浏览器端的技术
+		* 要求保存数据：服务器
+		* 保存数据：浏览器
+			* IE；将cookie保存到指定目录中，以文件的形式存储
+			* 火狐或谷歌：将cookie保存到指定的文件中
+		* 使用HTTP协议进行通信
+		* <会话级cookie>：当整个会话结束后，cookie信息将被删除（cookie在内存中）
+		* <持久化cookie>：将cookie保存到硬盘中
+			* setMaxAge
+				* 单位：秒
+				* 如果设置的值为零，则进行删除操作。
+		* request.getCookies();获得*当前web项目*的所有的cookie信息
+			* 获得当前浏览器中的cookie
+			* 获得【当前servlet所在目录】，【以及之上的所有目录下】的cookie信息
+			* 通过setPath可以设置cookie的访问路径
+		* 在cookie中存放中文
+			* 编码：String returnData  = URLEncoder.encode(data, "UTF-8");
+			* 解码：String value = URLDecoder.decode(c.getValue(), "UTF-8");
+			
+		* cookie的value可以设置多少个字符：4kb
+		* 作业：完成用户登录（账号、密码，复选框（保存两星期），登录按钮）
+	* session：服务器在服务器端创建一个内存区域，用来存放当前用户的所有信息，通过cookie关联。
+		* 前提：必须使用cookie
+		* session：
+			* tomcat创建
+			* 销毁：30分钟
+		* ＵＲＬ重写
+			* 一般情况选择encodeURL
+			* 两个方法区别在于，如果参数为空字符串，返回结果不同。
+				public String encodeURL(String url) {
+			
+					String absolute = toAbsolute(url);
+					if (isEncodeable(absolute)) {
+						// W3c spec clearly said 
+						if (url.equalsIgnoreCase("")){  //****
+							url = absolute;
+						}
+						return (toEncoded(url, request.getSessionInternal().getIdInternal()));
+					} else {
+						return (url);
+					}
+
+				}
+				
+				 public String encodeRedirectURL(String url) {
+
+					if (isEncodeable(toAbsolute(url))) {
+						return (toEncoded(url, request.getSessionInternal().getIdInternal()));
+					} else {
+						return (url);
+					}
+
+				}
+			* 注意：参数url必须有效，否则返回没有改变的URL
+				* 当使用"/"开头，相对于web站点
+					* response.encodeURL("/day07/urlSessionServlet2")
+					* /day07/urlSessionServlet2;jsessionid=F85DB5EFDDB9A6B170AF2B4959EFC4FC
+				* 获得Web的绝对路径
+					String absolute = toAbsolute(url);
+					* http://localhost:8080/day07/
+			* 总结：
+				* 需要考虑用户的Cookie是否禁用了
+				* 将所有的链接全部进行URL重写（过滤器）
+		* 作业：1、理解一次性验证码  2、尝试编写
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

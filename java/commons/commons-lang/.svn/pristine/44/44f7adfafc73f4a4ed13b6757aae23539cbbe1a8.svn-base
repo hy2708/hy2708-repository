@@ -1,0 +1,18 @@
+package org.hy.commons.lang.thread;
+
+/*
+ * 线程之间，栈内存，独享
+ * 堆内存，共享
+ */
+public class ThreadUtil {
+	
+	public static void getcurrentThread(Class<?> target) {
+		//System.out.println(this.getName() + i);
+		/*
+		 * static Thread currentThread() 
+      			返回对当前正在执行的线程对象的引用。 
+		 **/
+		// Thread.currentThread().setName("OOXX");
+	}
+
+}

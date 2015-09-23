@@ -1,0 +1,170 @@
+package org.hy.commons.lang.string;
+
+import static org.junit.Assert.*;
+
+import java.io.UnsupportedEncodingException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class StringUtilTest {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void name() throws UnsupportedEncodingException {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int i = 0; i < 100; i++) {
+			stringBuilder.append("abcde");
+		}
+		byte[] b = stringBuilder.toString().getBytes("utf-8");
+		System.err.println("原"+stringBuilder.toString().length()+"  "+b.length);
+		String string = new String(b);
+		byte[] b2 = string.getBytes("utf-8");
+		System.err.println("后"+string.length()+"  "+b2.length);
+		
+	}
+	
+	@Test
+	public void testCountChar() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetCount() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testHasLength() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testHasText() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIs8Bit() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsBigDecimal() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsBiggerDate() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsDateTime() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsDecimalNumber() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsEmpty() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsHexStringChar() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsIntegerNumber() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsNotEmpty() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsNullOrEmptyString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsNumeric() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsTrue() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsUUIDString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testParseTemplate() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testReplaceAllOccurances() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSize() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToHexByte() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToHexChar() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToHexString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToStringObject() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToStringObjectInt() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToStringBuffer() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToStringBuilder() {
+		fail("Not yet implemented");
+	}
+
+}

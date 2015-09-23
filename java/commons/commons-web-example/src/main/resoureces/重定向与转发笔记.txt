@@ -1,0 +1,32 @@
+1、转发与重定向【****】
+	* 重定向：重新确定请求方向
+		* 发送者：服务器 --> 响应(response)浏览器
+		* 执行者：浏览器 --> 重新请求
+	* 转发：当前请求未完成，服务器调用另一个程序继续完成整个请求
+		* 服务器：当前程序需要获得请求调度器 RequestDispatcher
+		* forward:当调度器，协调多个servlet时，此方法返回最后一个servlet的页面输出内容。
+	* 对比
+		* 何时使用
+			* 重定向：可以指定当前web项目的URL，也可以指定其他web资源
+			* 转发：只能指定当前的web项目URL
+		* 确定使用
+			* 重定向：在第一次请求中设置值，在重定向后不能获取。两次请求，tomcat创建了两个request
+				* 完成跳转功能，选重定向
+			* 转发：设置的值可以在其他servlet或资源中使用。
+				* 多个servlet需要传递数据时，现在转发。
+		* 总结：
+			* 请求次数
+				* 重定向：请求2次，tomcat创建了两个request对象
+				* 转发：请求1次，tomcat创建了2个request对象
+					* request --> org.apache.catalina.connector.RequestFacade  -- HttpServletRequest --ServletRequest
+					* request --> org.apache.catalina.core.ApplicationHttpRequest
+									* class ApplicationHttpRequest extends HttpServletRequestWrapper {
+									* public class HttpServletRequestWrapper implements HttpServletRequest {
+									* ApplicationHttpRequest -- HttpServletRequestWrapper -- HttpServletRequest
+					* 将第一个request中的内容，拷贝给第二个request。值相同
+			* 浏览器地址栏是否修改
+				* 重定向：修改，看到跳转后页面的内容
+				* 转发：没有修改，看到的转发后最后一个servlet响应的内容
+			* request设置的值，是否共享
+				* 重定向：数据不共享
+				* 转发：数据共享

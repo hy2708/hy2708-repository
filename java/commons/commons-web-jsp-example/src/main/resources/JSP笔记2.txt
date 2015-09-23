@@ -1,0 +1,34 @@
+1、常用标签
+	* 只要支持JSP文件，常用标签有可以直接使用
+        * 格式： jsp:xxxx
+	* jsp:forward ,完成jsp页面的转发
+    	* page属性：转发的地址
+		* 运行原理
+			JSP引擎，处理JSP文件，自己解析特定的标签，然后将其编译成java代码
+			jsp:forward -- application.getRequestDispatcher("/forward.jsp");
+				* 注意：在JSP页面中可以不用斜杠开头
+					* String path = getAbsolutePathRelativeToContext(relativeUrlPath);自己单独处理，如果不是/开头，自动添加
+		* 涉及页面
+			* /day09/WebRoot/jsptag.jsp
+			* /day09/WebRoot/forward.jsp
+	* jsp:include ,动态包含,在执行当前servlet时才进行文件的合并
+		* page属性：包含的页面
+		* 执行原理
+			* org.apache.jasper.runtime.JspRuntimeLibrary.include
+    		* request.getRequestDispatcher.include
+		* 涉及页面
+			* /day09/WebRoot/jsptag2.jsp
+			* /day09/WebRoot/include.jsp
+	* jsp:param,设置参数，与jsp:forward或jsp:include一起使用
+		* name属性：指定参数的名称
+		* value属性：指定参数的值
+		
+	* jsp:useBean标签：创建class指定的类，并将此类添加到作用域中
+		* class属性：指定类的完整路径名
+		* id属性：确定对象的实例对象
+	* jsp:setProperty标签：给指定的Javabean对象设置属性值
+		* name属性：已有的JavaBean在web域中的对象
+		* property属性：确定需要使用的Javabean的属性
+		* value属性：确定设置的具体的内容
+		* param属性：获得指定参数的内容
+		* 注意：当内容是null时，将不会赋值

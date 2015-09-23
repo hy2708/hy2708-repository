@@ -1,0 +1,13 @@
+package org.hy.commons.lang.character;
+
+@Deprecated
+public class CharsetUtil {
+
+	public static void main(String[] args) {
+		/*
+		 */////u4e00---/u9f5a
+		 
+		char d ='\u9636';
+		System.err.println(d);
+	}
+}

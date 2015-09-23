@@ -1,0 +1,26 @@
+可以把jdbc，看错一个特殊的IO操作
+把jdbc和流，做对比。
+Connection------------------------------Stream流
+Statement
+Statement.executeUpdate-----------------Stream.write
+Statement.executeQuery-----------------Stream.read
+ReslutSet = Statement.executeQuery-----------------Stream.read(byte[])
+
+
+
+Connection------------------------------Stream流
+Stream，通过FIle，拿到和文件的连接
+Connection，通过一个Url字符，获得和数据库的连接
+
+Statement
+Statement.executeUpdate-----------------Stream.write
+Statement.executeQuery-----------------Stream.read
+Strema流，要向文件，写入数据，需要调用write方法。
+Connection，要向数据库，写入数据。但是，由于Connection，执行的不是简单的读写操作，（里面的写搓澡很复杂）
+所以，有创造了一个专门的类Statement，专门来负责，对数据的读写操作。
+Statement.executeUpdate------对应着-----------Stream的写操作write
+Statement.executeQuery-------对应着-----------Stream的读操作read
+
+
+ReslutSet = Statement.executeQuery-----------------Stream.read(byte[])
+因此ReslutSet，对应着Stream.read，读出的byte[]结果

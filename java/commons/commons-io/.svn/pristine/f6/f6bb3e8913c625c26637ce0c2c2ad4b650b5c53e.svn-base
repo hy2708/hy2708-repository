@@ -1,0 +1,45 @@
+package org.hy.commons.io.core;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.util.List;
+
+import jodd.util.Wildcard;
+
+import org.hy.commons.lang.CollectionUtil;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class FindFileUtilTest {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testFindFilesStringString() {
+		//String searchPath = ProjectPathUtil.getProjectResourcesDirPath();
+		String searchPath = "E:\\Program Files\\eclipse-jee-helios-SR2-win32\\workspace\\spring0909";
+		List<File> list =FindFileUtil.findFiles(searchPath,"PersonDaoImpl.java*");
+		for (File file : list) {
+			System.err.println(file.getAbsolutePath());
+		}
+	}
+
+	@Test
+	public void testFindFilesStringStringString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFindFilesByWildCard() {
+		fail("Not yet implemented");
+	}
+
+}

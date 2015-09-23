@@ -1,0 +1,45 @@
+package org.hy.commons.lang.aop.proxy.example.around;
+
+import org.hy.commons.lang.aop.proxy.AroundAdvice;
+import org.hy.commons.lang.aop.proxy.JoinPoint;
+import org.hy.commons.lang.aop.proxy.ProceedingJoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+public class AroundAdviceImpl02 implements AroundAdvice {
+
+	private static Logger logger = LoggerFactory
+			.getLogger(AroundAdviceImpl02.class);
+	
+	@Override
+	public void beforeMethod(JoinPoint joinPoint) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void afterMethod(JoinPoint joinPoint) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Object aroundMethod(ProceedingJoinPoint joinPoint)  {
+		logger.info("正在执行【AroundAdviceImpl02.aroundMethod(args)】方法");
+		logger.info("---被代理对象【{}】",joinPoint.getTarget().getClass().getName());
+		logger.info("---被代理方法【{}】",joinPoint.getMethod().getName());
+		logger.info("---方法参数【{}】",joinPoint.getArgs().toString());
+		Object object = null;
+		try {
+			object = joinPoint.proceed();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("back02---------正在执行【AroundAdviceImpl02.aroundMethod(args)】方法");
+
+		return object;	}
+
+	
+}

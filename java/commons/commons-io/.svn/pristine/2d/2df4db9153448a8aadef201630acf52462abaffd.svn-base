@@ -1,0 +1,238 @@
+package org.hy.commons.io.cookie;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+
+
+import org.hy.commons.io.core.FileUtil;
+import org.hy.commons.io.core.IoUtil;
+import org.hy.commons.io.core.ProjectPathUtil;
+import org.hy.commons.lang.SystemUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class DelAllCookies {
+	
+	Logger logger = LoggerFactory.getLogger(DelAllCookies.class);
+	
+	public static void delCookies(String[] keys,File reportFile) {
+		String cookie = SystemUtil.getSystemProperty("APPDATA")
+				+ File.separator + "Microsoft" + File.separator + "Windows"
+				+ File.separator + "Cookies";
+
+
+		File cookieFolder = new File(cookie);
+		if (!cookieFolder.exists()) {
+			throw new RuntimeException("cookie 文件夹不存在");
+		}
+		
+		BufferedWriter bw = null;
+		try {
+			FileUtil.createFile(reportFile);
+			bw = IoUtil.getBufferedWriter(reportFile,true,"gbk");
+			// 删除cookie文件夹下，所有的文件
+			for (File subFile : cookieFolder.listFiles()) {
+				System.out.println(subFile);
+				String key =null;
+				if (matchKeys(keys, subFile.getName(),key)) {
+					bw.write("含有关键字【" +
+							key+
+							"】，不删除cookie文件："+subFile.getAbsolutePath()+"\r\n");
+				} else {
+					FileUtil.deleteDir(subFile.getAbsolutePath());
+					bw.write("成功删除cookie文件："+subFile.getAbsolutePath()+"\r\n");
+				}
+				
+			}
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		public static void delFlashCookies(String[] keys,File reportFile) {
+		
+		//删除flashCookie
+		String flashCookie = SystemUtil.getSystemProperty("APPDATA")
+				+ File.separator + "Macromedia"
+				+ File.separator + "Flash Player" 
+				+ File.separator + "#SharedObjects";
+		File flashCookieFolder = new File(flashCookie);
+		if (!flashCookieFolder.exists()) {
+			throw new RuntimeException("flashCookieFolder 文件夹不存在");
+		}
+		
+		BufferedWriter bw = null;
+		try {
+			//FileUtil.createFile(reportFile);
+			bw = IoUtil.getBufferedWriter(reportFile,true,"gbk");
+			// 删除%appdata%\Macromedia\Flash Player\#SharedObjects文件夹下，所有的文件
+			if (flashCookieFolder!=null&&
+					flashCookieFolder.isDirectory()&&
+					flashCookieFolder.list().length==1) {
+				File midFile =(flashCookieFolder.listFiles())[0];
+				//System.err.println(midFile.listFiles().length);
+				if (midFile.list()!=null) {
+					for (File subFile : midFile.listFiles()) {
+						System.out.println(subFile);
+						String key =null;
+						if (matchKeys(keys, subFile.getName(),key)) {
+							bw.write("含有关键字【" +
+									key+
+									"】，不删除flashCookie文件："+subFile.getAbsolutePath()+"\r\n");
+						} else {
+							FileUtil.deleteDir(subFile.getAbsolutePath());
+							bw.write("成功删除flashCookie文件："+subFile.getAbsolutePath()+"\r\n");
+						}
+						
+					}
+				}
+				
+			} else {
+
+				for (File subFile : flashCookieFolder.listFiles()) {
+					System.out.println(subFile);
+					String key =null;
+					if (matchKeys(keys, subFile.getName(),key)) {
+						bw.write("含有关键字【" +
+								key+
+								"】，不删除flashCookie文件："+subFile.getAbsolutePath()+"\r\n");
+					} else {
+						FileUtil.deleteDir(subFile.getAbsolutePath());
+						bw.write("成功删除flashCookie文件："+subFile.getAbsolutePath()+"\r\n");
+					}
+					
+				}
+			}
+			
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void delCookiesAndFlashCookies() {
+		// 打包后，jar所在路径
+				String jarDIrPath = ProjectPathUtil.getJarFileDir(DelAllCookies.class);
+				//String jarDIrPath = IoUtil.getSystemProperty("APPDATA")+"Microsoft\\Windows\\Cookies";
+				//String jarDIrPath = "d:/11";
+				// 创建report文件夹
+				//System.out.println("55555555555555"+jarDIrPath);
+				File reportFolder = createReportFolder(jarDIrPath);
+				// 创建conf文件夹
+				File confFolder = createConfFolder(jarDIrPath);
+				// 在conf文件夹m，创建配置文件
+				File confFile = createConfFile(confFolder);
+				//读取confFile文件中的信息
+				BufferedReader br = IoUtil.getBufferedReader(confFile);
+
+				String[] keys = new String[]{} ;
+				try {
+					String line = br.readLine();
+					if (line!=null) {
+						
+						keys = line.split(",");
+						for (int i = 0; i < keys.length; i++) {
+							String string = keys[i];
+							//System.err.println(string+"8888888888888");
+						}
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				File reportFile = new File(reportFolder.getAbsoluteFile()+
+						File.separator+SystemUtil.getToday()+".txt");
+				
+				delCookies(keys, reportFile);
+				
+				delFlashCookies(keys, reportFile);
+
+				
+				
+				
+	}
+
+	private static File createReportFolder(String jarDIrPath) {
+		// 创建report文件夹
+		String reportDirPath = null;
+		if (jarDIrPath.endsWith(File.separator)) {
+			reportDirPath = jarDIrPath + "report" + File.separator;
+		} else {
+			reportDirPath = jarDIrPath + File.separator + "report"
+					+ File.separator;
+
+			
+		}
+
+		File reportFolder = new File(reportDirPath);
+		FileUtil.createFile(reportFolder);
+		return reportFolder;
+	}
+
+	private static File createConfFolder(String jarDIrPath) {
+		// 创建report文件夹
+		String confDirPath = null;
+		if (jarDIrPath.endsWith(File.separator)) {
+			confDirPath = jarDIrPath + "conf" + File.separator;
+		} else {
+			confDirPath = jarDIrPath + File.separator + "conf" + File.separator;
+
+		}
+
+		File confFolder = new File(confDirPath);
+		FileUtil.createFile(confFolder);
+		return confFolder;
+	}
+
+	public static void main(String[] args) {
+		// %appdata%\Macromedia\Flash Player\#SharedObjects
+		// %appdata%\Microsoft\Windows\Cookies
+
+		delCookiesAndFlashCookies();
+		//File file = new File("d:/re.txt");
+		//String[] strings = new  String[]{"googoe"};
+		//delFlashCookies(strings,file) ;
+
+	}
+
+	private static File createConfFile(File confFolder) {
+
+		// 创建report文件夹
+		String confFilePath = null;
+		if (confFolder.getAbsolutePath().endsWith(File.separator)) {
+			confFilePath = confFolder + "conf.txt";
+		} else {
+			confFilePath = confFolder +File.separator+ "conf.txt";
+
+		}
+
+		File confFile = new File(confFilePath);
+		FileUtil.createFile(confFile);
+		return confFile;
+		
+	}
+	
+	private static Boolean matchKeys(String[] keys,String fileName,String key) {
+		
+		Boolean boolean1 = false;
+		for (int i = 0; i < keys.length; i++) {
+			//如果cookie文件包含，保留关键字，则不删除
+			if (fileName.indexOf(keys[i])!=-1) {
+				key=keys[i];
+				boolean1 = true;
+			}
+			
+		}
+		return boolean1;
+	}
+
+}
