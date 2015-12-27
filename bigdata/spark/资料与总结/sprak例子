@@ -1,0 +1,29 @@
+ val rdd = sc.parallelize(List(1,2,3,4,5,6))
+ val maprdd =rdd.map(_ *2)
+val col =maprdd.collect
+val filteredrdd =maprdd.filter(_ >5)
+filteredrdd.collect
+val co =sc.parallelize(List(1,2,3,4,5,6)).map(_ *2).filter(_ >5).collect
+
+//统计字符出现频率
+ val textfile =sc.textFile("/testdata/countChar.txt");
+textfile.cache
+val yuanzu = textfile.flatMap(_.split(" ")).map(el => (el,1));
+val countChar =yuanzu.reduceByKey((el,el2)=>el+el2).collect
+yuanzu.reduceByKey((el,el2)=>el+el2).saveAsTextFile("/dir")
+//再排序
+val countChar =sc.textFile("/testdata/countChar.txt").flatMap(_.split(" ")).map(el => (el,1)).reduceByKey((el,el2)=>el+el2)//.collect
+val sortCountChar =countChar.map(el=>(el._2,el._1)).sortByKey().map(el=>(el._2,el._1))
+//union
+val jo =sc.parallelize(Array(('a',1),('a',2),('c',1),('d',1)))
+val jo2 =sc.parallelize(Array(('b',1),('b',2),('c',2),('d',1)))
+val jo3 =jo.union( jo2)
+jo3.collect
+//join
+val jo =sc.parallelize(Array(('a',1),('a',2),('c',1),('c',3),('d',1)))
+val jo2 =sc.parallelize(Array(('b',1),('b',2),('c',2),('d',1)))
+val jo3 =jo.join( jo2)
+jo3.collect
+//lookup
+val jo =sc.parallelize(Array(('a',1),('a',2),('c',1),('c',3),('d',1)))
+jo.lookup('a')
