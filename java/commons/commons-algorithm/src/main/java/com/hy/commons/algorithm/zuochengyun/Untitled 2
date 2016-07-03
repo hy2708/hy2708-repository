@@ -1,0 +1,272 @@
+http://www.nowcoder.com/discuss/594
+
+【本期题目】
+1 拼接所有字符串产生字典顺序最小的大字符串
+
+2 从5随机到7随机及其扩展
+(1)题目
+给定一个等概率随机产生1~5的随机函数rand1To5如下：
+public int rand1To5() {
+return (int) (Math.random() * 5) + 1;
+}
+除此之外不能使用任何额外的随机机制，请用rand1To5实现等概率随机产生1~7的随机函数rand1To7。
+(2)补充题目
+给定一个以p概率产生0，以1-p概率产生1的随机函数rand01p如下：
+public int rand01p() {
+// you can change p as you like
+double p = 0.83;
+return Math.random() < p ? 0 : 1;
+}
+除此之外不能使用任何额外的随机机制，请用rand01p实现等概率随机产生1~6的随机函数rand1To6。
+(3)进阶题目
+给定一个等概率随机产生1~M的随机函数rand1ToM如下：
+public int rand1ToM(int m) {
+return (int) (Math.random() * m) + 1;
+}
+除此之外不能使用任何额外的随机机制。有两个输入参数分别为m和n，请用rand1ToM(m)实现等概率随机产生1~n的随机函数rand1ToN。
+
+3给定一个无序数组arr，求出需要排序的最短子数组长度。
+例如：
+arr = [1，5，3，4，2，6，7]
+返回4，因为只有[5，3，4，2]需要排序。
+
+4 最大的leftMax与rightMax之差的绝对值
+给定一个长度为N(N>1)的整型数组arr，可以划分成左右两个部分，左部分arr[0..K]，右部分arr[K+1..N-1]，K可以取值的范围是[0,N-2]。求这么多划分方案中，左部分中的最大值减去右部分最大值的绝对值，最大是多少？
+例如[2,7,3,1,1]，当左部分为[2,7]，右部分为[3,1,1]时，左部分中的最大值减去右部分最大值的绝对值为4。当左部分为[2,7,3]，右部分为[1,1]时，左部分中的最大值减去右部分最大值的绝对值为6。还有很多划分方案，但最终返回6。
+
+5 现在有一种新的二叉树节点类型如下：
+
+	public class Node {
+		public int value;
+		public Node left;
+		public Node right;
+		public Node parent;
+		public Node(int data) {
+			this.value = data;
+		}
+	}
+
+该结构比普通二叉树节点结构多了一条指向父节点的parent指针。假设有一棵Node类型的节点组成的二叉树，树中每个节点的parent指针都正确的指向自己的父节点，头节点的parent指向null。只给一个在二叉树中的某个节点node，请实现返回node的后继节点的函数。在二叉树的中序遍历的序列中，node的下一个节点叫做node的后继节点。
+例如，下图的二叉树：
+__________6__________
+  / \
+  ___3___   ___9___
+ /       \  /       \
+1__       4__   __8  10
+\  \  /
+2   5 7
+
+
+中序遍历的结果为：1，2，3，4，5，6，7，8，9，10
+所以节点1的后继为节点2，节点2的后继为节点3，…，节点10的后继为null
+
+注：下面回帖给出了源代码供参考。
+
+【分享嘉宾介绍】
+左程云
+华中科技大学本科--计算机科学与技术专业、 芝加哥大学硕士--计算机科学专业
+IBM软件工程师、 百度软件工程师、 刷题5年的算法热爱者
+《程序员代码面试指南--IT名企算法与数据结构题目最优解》 作者，电子工业出版社7月底将出版发行，书籍涉及算法与数据结构编程题目240道以上，并且个人实现出最优解，大部分题目为面试高频题
+
+【参与牛客堂直播】
+每周三晚8:00~9:30，直播页面http://www.nowcoder.com/live/courses
+
+【直播题目讨论】
+加入牛客5群272820159
+
+
+收藏
+分享
+赞(32)
+回帖
+【提醒】搜狗2017秋招提前批网申即将截止，拿正式offer下一贴
+13条回帖 回帖
+管理员头像
+管理员 1#
+AB城市道路攻陷问题
+
+
+拼接所有字符串产生字典顺序最小的大字符串
+
+package test;
+import java.util.Arrays;
+import java.util.Comparator;
+class MergeComparator implements Comparator<String> {  @Override  public int compare(String arg0, String arg1) {  return (arg0 + arg1).compareTo(arg1 + arg0);  }
+}
+public class MergeStringsLowestLexicography {  public static String lowestString(String[] strs) {  Arrays.sort(strs, new MergeComparator());  String res = "";  for (int i = 0; i != strs.length; i++) {  res += strs[i];  }  return res;  }  public static void main(String[] args) {  String[] strArr = { "jibw", "ji", "jp", "bw", "jibw" };  String result = lowestString(strArr);  System.out.println(result);  }
+}
+
+证明最关键的步骤是证明这种比较的方式具有传递性。
+假设有a,b,c三个字符串，他们有如下的关系：
+a.b < b.a
+b.c < c.b
+所谓传递性证明是指，如果有以上的两个关系，能否证明 a.c < c.a
+证明传递性过程：
+字符串a,b的连接记为a.b，如果将字符串看做一个K进制数，那么字符串之间的加减乘除都可以按照数字的方式进行。
+那么a.b这个字符串中a作为高位，b作为低位，可以进行如下的替换
+a.b = a*(K^length(b))+b。其中a*(K^length(b))表示，a这个K进制数，向左位移了b的长度。
+我们现在把K^length(b)记为moveBit(b)，则a.b = a*moveBit(b)+b，那么
+a.b < b.a => a*moveBit(b)+b < b*moveBit(a)+a 不等式1
+b.c < c.b => b*moveBit(c)+c < c*moveBit(b)+b 不等式2
+现在要证明a.c < c.a，也就是证明a*moveBit(c)+c < c*moveBit(a)+a
+我们把不等式1的左右两边同时减去b再乘以c，则不等式1可以变形为：
+a*moveBit(b)*c < b*moveBit(a)*c+a*c-b*c
+我们把不等式2的左右两边同时减去b再乘以a，则不等式2可以变形为：
+b*moveBit(c)*a+c*a-b*a < c*moveBit(b)*a
+现在a,b,c都是K进制数，所以服从乘法交换律。
+所以不等式1中的a*moveBit(b)*c等于不等式2中的c*moveBit(b)*a。
+所以，b*moveBit(c)*a+c*a-b*a < b*moveBit(a)*c+a*c-b*c
+所以，b*moveBit(c)*a-b*a < b*moveBit(a)*c-b*c
+所以，a*moveBit(c)-a < c*moveBit(a)-c
+所以，a*moveBit(c)+c < c*moveBit(a)+a => a.c < c.a
+证明a.c < c.a完成。
+现在我们知道这种比较大小的方式是有传递性的，那么根据这种传递性可知，在一个排序过的序列中，任意两个字符串Str1与Str2，只要Str1排在Str2的前面，就有Str1.Str2 < Str2.Str1。
+好，现在我们有了传递性，接下来需要证明：在通过这种排序方式之后所得到的字符串序列中，交换任意两个字符串之后的那个总字符串，都会比未交换前的那个总字符串，拥有更大的字典顺序。
+假设通过如上的比较方式，我们得到了一组字符串的序列：…A.M1.M2…M(n-1).M(n).L…，该序列表示，代号为A的字符串之前和代号为L的字符串之后都有若干字符串，A和L中间有若干字符串（用M1..M(n)表示）。
+现在我们交换A和L这两个字符串，那么交换之前和交换之后两个总字符串就分别为：
+…A.M1.M2…M(n-1).M(n).L… 换之前
+…L.M1.M2…M(n-1).M(n).A… 换之后
+现在我们需要证明换之后的总字符串字典顺序大于换之前的。
+证明：
+因为在原始序列中，M1排在L的前面，所以有M1.L<L.M1，所以有…L.M1.M2…M(n-1).M(n).A… > …M1.L.M2…M(n-1).M(n).A…
+因为在原始序列中，M2排在L的前面，所以有M2.L<L.M2，所以有…M1.L.M2…M(n-1).M(n).A… > …M1.M2.L…M(n-1).M(n).A…
+…
+所以有：…M1.M2…M(n-1).M(n).L.A… > …M1.M2…M(n-1).M(n).A.L…
+因为在原始序列中，A排在M(n)的前面，所以有A.M(n)<M(n).A，所以有…M1.M2…M(n-1).M(n).A.L… > …M1.M2…M(n-1).A.M(n).L…
+…
+所以有：…M1.A.M2…M(n-1).M(n).L… > …A.M1.M2…M(n-1).M(n).L…
+通过上面不等式之间的连接，可证明换之后>换之前，证明结束，该方法有效。
+那么整个解法的时间复杂度就是排序本身的复杂度，O(N*logN)。
+本题的解法非常简单，但是该题的重点，解法有效性的证明确比较复杂。在这里不得不向读者进行一点提醒，这道题的解题方法，可以划进贪心算法的范畴，这种有效的比较方式，就是我们的贪心策略。
+
+所以算法的时间复杂度就是排序的时间复杂度，O(N*logN)
+
+正如本题所展示的一样，稍微了解过贪心算法的朋友都知道，贪心策略容易大胆假设，策略有效性的证明可就不容易求证了。在面试中，如果哪一个题目你决定用贪心方法求解，那你必须用较大的篇幅去证明你提出的贪心策略是有效的。
+
+所以我建议面试准备时间不充裕的同学，不要轻易去啃有关贪心策略的题目，那将占用你大量的时间和精力。实际上在面试中也较少出现需要用到贪心策略的题目，造成这个现象有两个很重要的原因，其一是考察贪心策略的面试题目，关键点在于数学上对策略的证明过程，偏离考察编程能力的面试初衷；其二是纯用贪心策略的面试题，解法的正确性完全在于贪心策略的成败，而缺少其他解法的多样性，这样就会使这一类面试题的区分度极差。
+
+贪心策略在算法上的地位当然重要，但是对于准备代码面试的同学来说，性价比不高，慎用。 
+
+
+
+
+以此提醒学生，不要刷ACM重量级题目，不要先刷贪心算法的题目。并说明原因
+并讲述一下代码面试题目的特点
+发表于 2015-07-22 13:50:06 回复(0) 赞(0)
+管理员头像
+管理员 2#
+从5随机到7随机及其扩展
+【题目】
+给定一个等概率随机产生1~5的随机函数rand1To5如下：
+	public int rand1To5() {
+		return (int) (Math.random() * 5) + 1;
+	}
+除此之外不能使用任何额外的随机机制，请用rand1To5实现等概率随机产生1~7的随机函数rand1To7。
+【补充题目】
+给定一个以p概率产生0，以1-p概率产生1的随机函数rand01p如下：
+	public int rand01p() {
+		// you can change p as you like
+		double p = 0.83;
+		return Math.random() < p ? 0 : 1;
+	}
+除此之外不能使用任何额外的随机机制，请用rand01p实现等概率随机产生1~6的随机函数rand1To6。
+【进阶题目】
+给定一个等概率随机产生1~M的随机函数rand1ToM如下：
+	public int rand1ToM(int m) {
+		return (int) (Math.random() * m) + 1;
+	}
+除此之外不能使用任何额外的随机机制。有两个输入参数分别为m和n，请用rand1ToM(m)实现等概率随机产生1~n的随机函数rand1ToN。
+
+
+
+	public int rand1To5() {
+		return (int) (Math.random() * 5) + 1;
+	}
+	public int rand1To7() {
+		int num = 0;
+		do {
+			num = (rand1To5() - 1) * 5 + rand1To5() - 1;
+		} while (num > 20);
+		return num % 7 + 1;
+	}
+
+
+
+
+
+	public int rand01p() {
+		// you can change p as you like
+		double p = 0.83;
+		return Math.random() < p ? 0 : 1;
+	}
+	public int rand01() {
+		int num;
+		do {
+			num = rand01p();
+		} while (num == rand01p());
+		return num == 1 ? 1 : 0;
+	}
+	public int rand0To3() {
+		return rand01() * 2 + rand01();
+	}
+	public int rand1To6() {
+		int num = 0;
+		do {
+			num = rand0To3() * 4 + rand0To3();
+		} while (num > 11);
+		return num % 6 + 1;
+	}
+	
+	
+	
+	
+	public int rand1ToM(int m) {
+		return (int) (Math.random() * m) + 1;
+	}
+	public int rand1ToN(int n, int m) {
+		int[] nMSys = getMSysNum(n - 1, m);
+		int[] randNum = getRanMSysNumLessN(nMSys, m);
+		return getNumFromMSysNum(randNum, m) + 1;
+	}
+	// 把value转成m进制的数
+	public int[] getMSysNum(int value, int m) {
+		int[] res = new int[32];
+		int index = res.length - 1;
+		while (value != 0) {
+			res[index--] = value % m;
+			value = value / m;
+		}
+		return res;
+	}
+	// 等概率随机产生一个0~nMsys范围上的数，只不过是m进制表达的。
+	public int[] getRanMSysNumLessN(int[] nMSys, int m) {
+		int[] res = new int[nMSys.length];
+		int start = 0;
+		while (nMSys[start] == 0) {
+			start++;
+		}
+		int index = start;
+		boolean lastEqual = true;
+		while (index != nMSys.length) {
+			res[index] = rand1ToM(m) - 1;
+			if (lastEqual) {
+				if (res[index] > nMSys[index]) {
+					index = start;
+					lastEqual = true;
+					continue;
+				} else {
+					lastEqual = res[index] == nMSys[index];
+				}
+			}
+			index++;
+		}
+		return res;
+	}
+	// 把m进制的数转成10进制
+	public int getNumFromMSysNum(int[] mSysNum, int m) {
+		int res = 0;
+		for (int i = 0; i != mSysNum.length; i++) {
+			res = res * m + mSysNum[i];
+		}
+		return res;
+	}

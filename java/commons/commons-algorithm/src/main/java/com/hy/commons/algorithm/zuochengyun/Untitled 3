@@ -1,0 +1,346 @@
+http://www.nowcoder.com/discuss/595?type=4&order=0&pos=34&page=1
+
+本次牛客堂分享题目】
+1.定义局部最小的概念。arr长度为1时，arr[0]是局部最小。arr的长度为N(N>1)时，如果
+arr[0]<arr[1]，那么arr[0]是局部最小；如果arr[N-1]<arr[N-2]，那么arr[N-1]是局部
+最小；如果0<i<N-1，既有arr[i]<arr[i-1]又有arr[i]<arr[i+1]，那么arr[i]是局部最小。
+给定无序数组arr，已知arr中任意两个相邻的数都不相等，写一个函数，只需返回arr中任
+意一个局部最小出现的位置即可。
+
+2.给定一个double类型的数组arr，其中的元素可正可负可0，返回子数组累乘的最大乘积。
+例如arr=[-2.5，4，0，3，0.5，8，-1]，子数组[3，0.5，8]累乘可以获得最大的乘积12，
+所以返回12。
+
+3.给定一棵完全二叉树的头节点head，返回这棵树的节点个数。如果完全二叉树的节点数为N，
+请实现时间复杂度低于O(N)的解法。
+
+4.给定两个有序数组arr1和arr2，两个数组长度都为N，求两个数组中所有数的上中位数。
+例如：
+arr1 = {1,2,3,4};
+arr2 = {3,4,5,6};
+一共8个数则上中位数是第4个数，所以返回3。
+arr1 = {0,1,2};
+arr2 = {3,4,5};
+一共6个数则上中位数是第3个数，所以返回2。
+要求：时间复杂度O(logN)
+
+5.给定两个有序数组arr1和arr2，在给定一个整数k，返回两个数组的所有数中第K小的数。
+例如：
+arr1 = {1,2,3,4,5};
+arr2 = {3,4,5};
+K = 1;
+因为1为所有数中最小的，所以返回1；
+arr1 = {1,2,3};
+arr2 = {3,4,5,6};
+K = 4;
+因为3为所有数中第4小的数，所以返回3；
+要求：如果arr1的长度为N，arr2的长度为M，时间复杂度请达到O(log(min{M,N}))。
+
+注：下面回帖给出了源代码供参考。
+
+【嘉宾介绍】 左程云 
+华中科技大学本科--计算机科学与技术专业、 芝加哥大学硕士--计算机科学专业 
+IBM软件工程师、 百度软件工程师、 刷题5年的算法热爱者 
+《程序员代码面试指南--IT名企算法与数据结构题目最优解》 作者，电子工业出版社即将出版发行，书籍涉及算法与数据结构编程题目240道以上，并且个人实现出最优解，大部分题目为面试高频题
+
+【参与牛客堂直播】
+每周三晚8:00~9:30，直播页面http://www.nowcoder.com/live/courses
+
+【直播题目讨论】
+加入牛客5群272820159
+收藏
+分享
+赞(32)
+回帖
+上一贴牛课堂报名｜机器学习讲座视频已更新！ppt已上传！#牛客堂直播视频#常见面试题精讲（二）（2015.6.3）下一贴
+18条回帖 回帖
+慈慈乱了头像
+慈慈乱了 1#
+真心牛
+发表于 2015-07-09 11:08:22 回复(0) 赞(0)
+管理员头像
+管理员 2#
+在数组中找到一个局部最小的位置
+【题目】
+定义局部最小的概念。arr长度为1时，arr[0]是局部最小。arr的长度为N(N>1)时，如果arr[0]<arr[1]，那么arr[0]是局部最小；如果arr[N-1]<arr[N-2]，那么arr[N-1]是局部最小；如果0<i<N-1，既有arr[i]<arr[i-1]又有arr[i]<arr[i+1]，那么arr[i]是局部最小。
+给定无序数组arr，已知arr中任意两个相邻的数都不相等，写一个函数，只需返回arr中任意一个局部最小出现的位置即可。
+
+	public int getLessIndex(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return -1; // no exist
+		}
+		if (arr.length == 1 || arr[0] < arr[1]) {
+			return 0;
+		}
+		if (arr[arr.length - 1] < arr[arr.length - 2]) {
+			return arr.length - 1;
+		}
+		int left = 1;
+		int right = arr.length - 2;
+		int mid = 0;
+		while (left < right) {
+			mid = (left + right) / 2;
+			if (arr[mid] > arr[mid - 1]) {
+				right = mid - 1;
+			} else if (arr[mid] > arr[mid + 1]) {
+				left = mid + 1;
+			} else {
+				return mid;
+			}
+		}
+		return left;
+	}
+
+发表于 2015-07-22 10:47:02 回复(3) 赞(0)
+
+请输入你的观点
+回复
+蓝色暹罗猫回复justalittlenoob:就是 大O n吧
+2015-10-14 20:06:08回复赞(0)
+左程云回复justalittlenoob:big O N
+2015-09-21 23:09:35回复赞(0)
+justalittlenoob闭钩 N 这个发音是怎么来的。。。不是欧N吗？
+2015-09-18 20:59:15回复赞(3)
+管理员头像
+管理员 3#
+数组中子数组的最大累乘积
+【题目】
+给定一个double类型的数组arr，其中的元素可正可负可0，返回子数组累乘的最大乘积。例如arr=[-2.5，4，0，3，0.5，8，-1]，子数组[3，0.5，8]累乘可以获得最大的乘积12，所以返回12。
+
+
+
+
+	public double maxProduct(double[] arr) {
+		if (arr == null || arr.length == 0) {
+			return 0;
+		}
+		double max = arr[0];
+		double min = arr[0];
+		double res = arr[0];
+		double maxEnd = 0;
+		double minEnd = 0;
+		for (int i = 1; i < arr.length; ++i) {
+			maxEnd = max * arr[i];
+			minEnd = min * arr[i];
+			max = Math.max(Math.max(maxEnd, minEnd), arr[i]);
+			min = Math.min(Math.min(maxEnd, minEnd), arr[i]);
+			res = Math.max(res, max);
+		}
+		return res;
+	}
+
+发表于 2015-07-22 10:49:11 回复(4) 赞(0)
+
+请输入你的观点
+回复
+马军营double GetMax(double arr[],int length) { double max=0; int i,j; for(j=0;j<length-1;j++) { double multi=arr[j]; for( i=j+1;i<length;i++) { multi*=arr[i]; if(multi>max) max=multi; } } return max; }
+2015-09-19 21:21:08回复赞(0)
+我的心好累:sorry，是我理解错了，经过断点调试，看到各个变量的变化确实如左老师所说，真为自己的智商捉急
+2015-09-17 22:03:20回复赞(0)
+我的心好累自始至终	maxEnd = max * arr[i]; minEnd = min * arr[i];， 那么max与min也是一样的，这个题有问题吧，真心看不懂啊
+2015-09-17 21:20:09回复赞(0)
+DennisRitchie如果遇到相等的情况该怎么办，就是max里面出现了值相等的情况
+2015-09-05 21:38:26回复赞(0)
+管理员头像
+管理员 4#
+统计完全二叉树的节点数
+【题目】
+给定一棵完全二叉树的头节点head，返回这棵树的节点个数。
+【要求】
+如果完全二叉树的节点数为N，请实现时间复杂度低于O(N)的解法。
+
+	public int nodeNum(Node head) {
+		if (head == null) {
+			return 0;
+		}
+		return bs(head, 1, mostLeftLevel(head, 1));
+	}
+	public int bs(Node node, int l, int h) {
+		if (l == h) {
+			return 1;
+		}
+		if (mostLeftLevel(node.right, l + 1) == h) {
+			return (1 << (h - l)) + bs(node.right, l + 1, h);
+		} else {
+			return (1 << (h - l - 1)) + bs(node.left, l + 1, h);
+		}
+	}
+	public int mostLeftLevel(Node node, int level) {
+		while (node != null) {
+			level++;
+			node = node.left;
+		}
+		return level - 1;
+	}
+
+发表于 2015-07-22 10:50:09 回复(2) 赞(3)
+
+请输入你的观点
+回复
+科比和勒布朗和杜兰特这个题太强大了
+2015-09-19 17:17:54回复赞(0)
+火引冰薪这题可不可以从下到上递归算啊？总觉得从上到下重复了一些节点？
+2015-09-11 10:20:06回复赞(0)
+管理员头像
+管理员 5#
+给定两个有序数组arr1和arr2，两个数组长度都为N，求两个数组中所有数的上中位数。
+例如：
+arr1 = {1,2,3,4};
+arr2 = {3,4,5,6};
+一共8个数则上中位数是第4个数，所以返回3。
+
+arr1 = {0,1,2};
+arr2 = {3,4,5};
+一共6个数则上中位数是第3个数，所以返回2。
+
+要求：时间复杂度O(logN)
+	public static int getUpMedian(int[] arr1, int[] arr2) {
+		if (arr1 == null || arr2 == null || arr1.length != arr2.length) {
+			throw new RuntimeException("Your arr is invalid!");
+		}
+		return findProcess(arr1, 0, arr1.length - 1, arr2, 0, arr2.length - 1);
+	}
+	public static int findProcess(int[] arr1, int start1, int end1, int[] arr2,
+			int start2, int end2) {
+		if (start1 == end1) {
+			return Math.min(arr1[start1], arr2[start2]);
+		}
+		// 元素个数为奇数，则offset为0；元素个数为偶数，则offset为1；
+		int offset = ((end1 - start1 + 1) & 1) ^ 1;
+		int mid1 = (start1 + end1) / 2;
+		int mid2 = (start2 + end2) / 2;
+		if (arr1[mid1] > arr2[mid2]) {
+			return findProcess(arr1, start1, mid1, arr2, mid2 + offset, end2);
+		} else if (arr1[mid1] < arr2[mid2]) {
+			return findProcess(arr1, mid1 + offset, end1, arr2, start2, mid2);
+		} else {
+			return arr1[mid1];
+		}
+	}
+
+发表于 2015-07-22 10:50:52 回复(0) 赞(2)
+管理员头像
+管理员 6#
+给定两个有序数组arr1和arr2，在给定一个整数k，返回两个数组的所有数中第K小的数。
+例如：
+arr1 = {1,2,3,4,5};
+arr2 = {3,4,5};
+K = 1;
+因为1为所有数中最小的，所以返回1；
+
+arr1 = {1,2,3};
+arr2 = {3,4,5,6};
+K = 4;
+因为3为所有数中第4小的数，所以返回3；
+
+要求：如果arr1的长度为N，arr2的长度为M，时间复杂度请达到O(log(min{M,N}))。
+	public static int findKthNum(int[] arr1, int[] arr2, int kth) {
+		if (arr1 == null || arr2 == null) {
+			throw new RuntimeException("Your arr is invalid!");
+		}
+		if (kth < 1 || kth > arr1.length + arr2.length) {
+			throw new RuntimeException("K is invalid!");
+		}
+		int[] longArr = arr1.length >= arr2.length ? arr1 : arr2;
+		int[] shortArr = arr1.length < arr2.length ? arr1 : arr2;
+		int lenL = longArr.length;
+		int lenS = shortArr.length;
+		if (kth <= lenS) {
+			return getUpMedian(shortArr, 0, kth - 1, longArr, 0, kth - 1);
+		}
+		if (kth > lenL) {
+			if (shortArr[kth - lenL - 1] >= longArr[lenL - 1]) {
+				return shortArr[kth - lenL - 1];
+			}
+			if (longArr[kth - lenS - 1] >= shortArr[lenS - 1]) {
+				return longArr[kth - lenS - 1];
+			}
+			return getUpMedian(shortArr, kth - lenL, lenS - 1, longArr, kth - lenS, lenL - 1);
+		}
+		if (longArr[kth - lenS - 1] >= shortArr[lenS - 1]) {
+			return longArr[kth - lenS - 1];
+		}
+		return getUpMedian(shortArr, 0, lenS - 1, longArr, kth - lenS, kth - 1);
+	}
+	public static int getUpMedian(int[] arr1, int start1, int end1, int[] arr2,
+			int start2, int end2) {
+		if (start1 == end1) {
+			return Math.min(arr1[start1], arr2[start2]);
+		}
+		int offset = ((end1 - start1 + 1) & 1) ^ 1;
+		int mid1 = (start1 + end1) / 2;
+		int mid2 = (start2 + end2) / 2;
+		if (arr1[mid1] > arr2[mid2]) {
+			return getUpMedian(arr1, start1, mid1, arr2, mid2 + offset, end2);
+		} else if (arr1[mid1] < arr2[mid2]) {
+			return getUpMedian(arr1, mid1 + offset, end1, arr2, start2, mid2);
+		} else {
+			return arr1[mid1];
+		}
+	}
+
+发表于 2015-07-22 10:54:31 回复(3) 赞(4)
+
+请输入你的观点
+回复
+牛客453024号太牛了，膜拜
+2015-12-09 08:43:12回复赞(0)
+牛客807392号两种特殊情况考虑判断条件错了吧？
+2015-09-15 18:39:35回复赞(0)
+KZephy这题太叼。。。
+2015-09-12 22:07:45回复赞(0)
+过好每一天_20868头像
+过好每一天_20868 7#
+源码实现
+发表于 2015-07-29 19:16:20 回复(0) 赞(0)
+募。狆妝头像
+募。狆妝 8#
+顶~~~~~~~~~~~~~~
+发表于 2015-08-30 22:33:25 回复(0) 赞(0)
+伊凡少爷头像
+伊凡少爷 9#
+赞赞赞~
+发表于 2015-08-31 19:24:13 回复(0) 赞(0)
+浮生年华头像
+浮生年华 10#
+攒知识了！太牛了
+发表于 2015-09-04 09:56:51 回复(0) 赞(0)
+田野里的枫头像
+田野里的枫 11#
+太屌了！！！  
+有种醍醐灌顶的感觉 
+真心牛掰！
+大神，请收下我的膝盖~
+发表于 2015-09-05 20:09:44 回复(0) 赞(0)
+花霁月头像
+花霁月 12#
+厉害厉害！！
+发表于 2015-09-14 17:09:44 回复(0) 赞(0)
+我的心好累头像
+我的心好累 13#
+真心佩服，我这么不爱算法的人，看做老师的视频都看得津津有味。认真研读后，发现真的很简单，虽然我现在只是在模仿。我已经在京东买了一本左老师的书，花了60块，希望能够支持到左老师，知识无价
+发表于 2015-09-19 15:47:10 回复(0) 赞(4)
+あ消逝ㄟ头像
+あ消逝ㄟ 14#
+int findKth(vector<int> &A,vector<int>&B, int startA,int startB,int k){
+    int lenA=A.size()-startA;
+    int lenB=B.size()-startB;
+    int(lenA>lenB)
+        return findKth(B,A,startB,startA,k);
+    if(lenA==0)
+        return B[startB+k-1];
+    if(k==1)
+        return min(A[startA],B[startB]);
+    int pa=min(k/2,lenA);
+    int pb=k-pa;
+    if(A[startA+pa-1]>B[startB+pb-1])
+        return findKth(A,B,startA,startB+pb,k-pb);
+    else if(A[startA+pa-1]<B[startB+pb-1])
+        return findKth(A,B,startA+pa,startB,k-pa);
+    return A[startA+pa-1];
+}
+int findKth(vector<int>&A,vector<int>&B,int k){
+    if(k<1||k>A.size()+B.size())
+        throw runtime_error("k is illegal");
+    return findKth(A,B,0,0,k);
+}
