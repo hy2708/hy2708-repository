@@ -59,7 +59,7 @@ public class DirectSort2 extends AbstractSort {
 
 		}
 
-		super.printSortReslut(args);
+		super.printArray(args);
 	}
 
 	

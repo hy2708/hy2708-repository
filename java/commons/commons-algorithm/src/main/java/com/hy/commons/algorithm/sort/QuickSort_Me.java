@@ -43,7 +43,7 @@ public class QuickSort_Me  extends AbstractSort{
 		//int b2[] = { 2,3,4,1 };
 		//int b2[] = { 3,4,1 ,2};
 
-		printSortReslut(b);
+		printArray(b);
 
 		
 		//new QuickSort2().partiton(b, 0, 8);
@@ -85,7 +85,7 @@ public class QuickSort_Me  extends AbstractSort{
 		}
 		args[low] = pivotkey;
 
-		super.printSortReslut(args);
+		super.printArray(args);
 		return low;
 	}
 	/**
@@ -134,7 +134,7 @@ public class QuickSort_Me  extends AbstractSort{
 		}
 		b[low] = privot;
 		
-		super.printSortReslut(b);
+		super.printArray(b);
 		return low;
 	}
 	
@@ -161,7 +161,7 @@ public class QuickSort_Me  extends AbstractSort{
 	    //最终将基准数归位 
 	    a[left]=a[i]; 
 	    a[i]=privot; 
-		printSortReslut(a);
+		printArray(a);
  
 	    return i;
 	}
@@ -169,7 +169,7 @@ public class QuickSort_Me  extends AbstractSort{
 	public void sort_Me(int[] arr,int begin,int end) {
 		if (begin<end) {
 			int privot =partiton_Me(arr,begin,end);
-			super.printSortReslut(arr);
+			super.printArray(arr);
 
 			sort_Me(arr, begin, privot-1);
 			sort_Me(arr,  privot+1,end);

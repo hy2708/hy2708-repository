@@ -59,7 +59,7 @@ public class BubbleSort extends AbstractSort{
 			}
 		}
 		
-		super.printSortReslut(args);
+		super.printArray(args);
 	}
 
 	

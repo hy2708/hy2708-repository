@@ -47,7 +47,7 @@ public class SelectionSort extends AbstractSort{
 			}
 		}
 		
-		super.printSortReslut(array);
+		super.printArray(array);
 	}
 
 	/**

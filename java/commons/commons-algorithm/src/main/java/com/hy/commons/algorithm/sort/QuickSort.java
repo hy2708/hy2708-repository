@@ -61,7 +61,7 @@ public class QuickSort extends AbstractSort{
 
 		}
 		
-		super.printSortReslut(args);
+		super.printArray(args);
 		return 0;
 	}
 	
