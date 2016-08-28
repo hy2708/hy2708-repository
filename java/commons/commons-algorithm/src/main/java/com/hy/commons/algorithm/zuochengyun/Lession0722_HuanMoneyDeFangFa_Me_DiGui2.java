@@ -1,8 +1,9 @@
 package com.hy.commons.algorithm.zuochengyun;
 
-import com.hy.commons.algorithm.sort.AbstractSort;
 
-public class Lession0722_HuanMoneyDeFangFa_Me_DiGui extends AbstractSort{
+//import com.hy.commons.algorithm.sort.AbstractSort;
+
+public class Lession0722_HuanMoneyDeFangFa_Me_DiGui2 {//extends AbstractSort{
 
 	/**
 	 * {5},0,10  return 0
@@ -14,15 +15,15 @@ public class Lession0722_HuanMoneyDeFangFa_Me_DiGui extends AbstractSort{
 	 * @return
 	 */
 	public static int getHuanMoneyFangFaCount_DiGui(int[] array, int startIndex ,int moneyAmount) {
-		if(moneyAmount==0) {
+		if(startIndex==array.length-1+1&&moneyAmount==0) {
 			return 1;
 		}else if (startIndex>=array.length) {
-			System.out.println(""+array[startIndex]+">length");
+			System.out.println("index["+startIndex+"]>length");
 			return 0; 
-		}else if(array[startIndex]>moneyAmount){
+		}/*else if(array[startIndex]>moneyAmount){
 			System.out.println(""+array[startIndex]+">"+moneyAmount);
 			return 0;
-		}else {
+		}*/else {
 			int res=0;
 			int n=moneyAmount/array[startIndex];
 			for (int i = 0; i <= n; i++) {
@@ -42,7 +43,9 @@ public class Lession0722_HuanMoneyDeFangFa_Me_DiGui extends AbstractSort{
 	public static void main(String[] args) {
 		//getHuanMoneyFangFaCount_DiGui(int[],int moneyAmount)
 //		System.out.println(getHuanMoneyFangFaCount_DiGui(new int[]{10,25,1},0,30));
-		System.out.println(getHuanMoneyFangFaCount_DiGui(new int[]{1, 2, 5, 10},0,3));
+		//System.out.println(getHuanMoneyFangFaCount_DiGui(new int[]{1, 2, 5},0,5));
+//		System.out.println(getHuanMoneyFangFaCount_DiGui(new int[]{5, 2, 1},0,5));
+		System.out.println(getHuanMoneyFangFaCount_DiGui(new int[]{5, 2, 3},0,10));
 		
 
 	}
