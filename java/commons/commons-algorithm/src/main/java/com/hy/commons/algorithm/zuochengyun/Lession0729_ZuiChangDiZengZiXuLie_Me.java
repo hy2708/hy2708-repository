@@ -6,6 +6,7 @@ import com.hy.commons.algorithm.sort.AbstractSort;
 
 public class Lession0729_ZuiChangDiZengZiXuLie_Me extends AbstractSort{
 
+	static int count =0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -13,6 +14,7 @@ public class Lession0729_ZuiChangDiZengZiXuLie_Me extends AbstractSort{
 		int[] dp=new int[arr.length];
 		getLengthOfMaxSubSeq(arr, dp, 0);
 		printArray(dp);
+		System.out.println(count);
 	}
 	
 	
@@ -25,6 +27,7 @@ public class Lession0729_ZuiChangDiZengZiXuLie_Me extends AbstractSort{
 		 * 
 		 */
 	public static void getLengthOfMaxSubSeq(int[] arr,int[] dp,int n) {
+		count++;
 		int maxLength=1;
 		if (n==0) {
 			dp[n]=1;

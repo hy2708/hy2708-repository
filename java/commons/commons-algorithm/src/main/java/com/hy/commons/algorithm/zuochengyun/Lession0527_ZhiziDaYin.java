@@ -2,7 +2,7 @@ package com.hy.commons.algorithm.zuochengyun;
 
 import javax.naming.InitialContext;
 
-public class Lession1_ZhiziDaYin {
+public class Lession0527_ZhiziDaYin {
 
 	public static void main(String[] args) {
 		int[][] arr =new int[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};

@@ -1,7 +1,7 @@
 package com.hy.commons.algorithm.zuochengyun;
 
 //如何实现顺时针旋转矩阵？
-public class Lession1_JuZhenShunShiZhenXuanZhuan {
+public class Lession0527_JuZhenShunShiZhenXuanZhuan {
 
 	public static void main(String[] args) {
 		int[][] arr =new int[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};

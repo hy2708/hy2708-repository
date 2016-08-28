@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 例如： str="AB1C2DE34F3GHJ21KL"; strLPS="1234321"; 返回："ABLK1C2DEJHG3F4F3GHJED2C1KLBA"
 
  */
-public class Lession1_Huiwen {
+public class Lession0527_Huiwen {
 
 	public static void main(String[] args) {
 		String str="AB1C2DE34F3GHJ21KL";
