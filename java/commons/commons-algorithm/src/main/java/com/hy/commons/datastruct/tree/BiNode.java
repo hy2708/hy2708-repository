@@ -3,8 +3,8 @@ package com.hy.commons.datastruct.tree;
 public class BiNode {
 
 	private Object value =null;
-	private BiNode leftNode =null;
-	private BiNode rightNode =null;
+	 BiNode leftNode =null;
+	 BiNode rightNode =null;
 	public Object getValue() {
 		return value;
 	}
@@ -24,6 +24,40 @@ public class BiNode {
 		this.rightNode = rightNode;
 	}
 
+	public BiNode(Object data, BiNode left, BiNode right) {
+		super();
+		this.value = data;
+		this.leftNode = left;
+		this.rightNode = right;
+	}
 
+	public BiNode(Object data) {
+		super();
+		this.value = data;
+
+	}
+	public BiNode( ) {
+		super();
+
+	}
 }
-f
+
+/*
+public class BiNode{
+	Object data=null;
+	BiNode left=null;
+	BiNode right=null;
+	public BiNode(Object data, BiNode left, BiNode right) {
+		super();
+		this.data = data;
+		this.left = left;
+		this.right = right;
+	}
+
+	public BiNode(Object data) {
+		super();
+		this.data = data;
+
+	}
+
+}*/
