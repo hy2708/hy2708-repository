@@ -20,7 +20,7 @@ public class _004median_of_two_sorted_arrays {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		http://www.programcreek.com/2012/12/leetcode-median-of-two-sorted-arrays-java/
+		//http://www.programcreek.com/2012/12/leetcode-median-of-two-sorted-arrays-java/
 	
 	}
 

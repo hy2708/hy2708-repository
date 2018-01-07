@@ -1,5 +1,5 @@
 // Copyright (c) 2003-2014, Jodd Team (jodd.org). All Rights Reserved.
-
+/*
 package jodd.http;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,3 +14,4 @@ public class Echo2Servlet extends EchoServlet {
 	}
 
 }
+*/

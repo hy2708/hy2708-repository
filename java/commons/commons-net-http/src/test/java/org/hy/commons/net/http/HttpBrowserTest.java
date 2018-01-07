@@ -1,5 +1,5 @@
 // Copyright (c) 2003-2014, Jodd Team (jodd.org). All Rights Reserved.
-
+/*
 package org.hy.commons.net.http;
 
 import static org.junit.Assert.assertEquals;
@@ -73,3 +73,4 @@ public class HttpBrowserTest {
 	}
 	
 }
+*/

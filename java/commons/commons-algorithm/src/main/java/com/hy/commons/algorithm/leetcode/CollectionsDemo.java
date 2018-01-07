@@ -13,7 +13,7 @@ public class CollectionsDemo {
 			// TODO Auto-generated method stub
 			return 0;
 		}
-	})
+	});
 	   String[] stringArray = { "a", "b", "c", "d", "e" };
 	   List<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
 	   

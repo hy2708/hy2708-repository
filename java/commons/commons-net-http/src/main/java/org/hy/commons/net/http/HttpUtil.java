@@ -20,7 +20,7 @@ public class HttpUtil {
 	    String page = browser.getPage();
 
 	    // create new request
-	    HttpRequest newRequest = HttpRequest.post(formAction);
+	    HttpRequest newRequest = null;//HttpRequest.post(formAction);
 
 	    browser.sendRequest(newRequest);
 	}

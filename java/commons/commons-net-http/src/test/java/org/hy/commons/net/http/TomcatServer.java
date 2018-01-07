@@ -1,12 +1,10 @@
 // Copyright (c) 2003-2014, Jodd Team (jodd.org). All Rights Reserved.
-
+/*
 package jodd.http;
 
 import org.apache.catalina.startup.Tomcat;
 
-/**
- * Tomcat Server.
- */
+
 public class TomcatServer extends TestServer {
 
 	protected Tomcat tomcat;
@@ -30,3 +28,4 @@ public class TomcatServer extends TestServer {
 		super.stop();
 	}
 }
+*/

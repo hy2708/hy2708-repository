@@ -10,8 +10,7 @@ public class TestPrime {
              return false;
            }
        }
-       Comparator<T>
-       
+
        return true;
     }
     public static void main(String[] args) {

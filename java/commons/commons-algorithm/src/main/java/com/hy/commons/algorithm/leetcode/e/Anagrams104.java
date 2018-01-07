@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ±¾ÌâÌâÒâ£º¸ø³öÒ»×é×Ö·û´®£¬»ñÈ¡ÀïÃæËùÓĞ·´×ªµÄ×Ö·û´®¡£°®ÄØ¸ñÈÈ°®Ä¿ÈÕ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½×ªï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½È°ï¿½Ä¿ï¿½ï¿½
  * 
- * ½âÌâË¼Â·£ºÍ¨¹ıÒ»¸ömapÀ´¼ÆËã£¬mapµÄkeyÓÃÓÚ¼ÇÂ¼×Ö·û´®£¬mapµÄvalueÓÃÓÚ¼ÇÂ¼×Ö·û´®µÄËùÓĞµßµ¹×Ö·û´®¡£
- * Í¨¹ımapÕâÒ»Êı¾İ½á¹¹£¬¼ò»¯ÁË¼ÆËã¡£
+ * ï¿½ï¿½ï¿½ï¿½Ë¼Â·ï¿½ï¿½Í¨ï¿½ï¿½Ò»ï¿½ï¿½mapï¿½ï¿½ï¿½ï¿½ï¿½ã£¬mapï¿½ï¿½keyï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½mapï¿½ï¿½valueï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµßµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
+ * Í¨ï¿½ï¿½mapï¿½ï¿½Ò»ï¿½ï¿½ï¿½İ½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ã¡£
  * 
  *
  */
@@ -18,25 +18,25 @@ public class Anagrams104 {
 	
 	public static void main(String[] args) {
 		String string="abcdef";
-		List<String> list= anagrams(strs)
+		List<String> list= anagrams(new String[]{""});
 	}
 	
  	public static List<String> anagrams(String[] strs) {
- 		//ÓÃÓÚ¼ÇÂ¼½á¹û
+ 		//ï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½ï¿½ï¿½
         List<String> answer = new ArrayList<String>();
         int strsLength = strs.length;
         if(strsLength == 0) return answer;
         
-        //mapµÄkeyÓÃÓÚ´æ´¢String£¬valueÓÃÓÚ´æ´¢ºÍÆäµßµ¹Ë³ĞòµÄËùÓĞ×Ö·û´®
+        //mapï¿½ï¿½keyï¿½ï¿½ï¿½Ú´æ´¢Stringï¿½ï¿½valueï¿½ï¿½ï¿½Ú´æ´¢ï¿½ï¿½ï¿½ï¿½ßµï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
         Map<String,ArrayList<String>> map = new HashMap<String,ArrayList<String>>();
         for(int i = 0; i < strsLength; i++){
             String s = strs[i];
-            //×ª»¯Îª×Ö·ûÊı×é
+            //×ªï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
             char[] schar = s.toCharArray();
-            //¶ÔÊı×é½øĞĞÅÅĞò
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Arrays.sort(schar);
             String stemp = String.valueOf(schar);
-            //¿´¿´µ±Ç°×Ö·û´®ÊÇ·ñÒÑ¾­´æÔÚÓÚmapÖĞ£¬Èç¹û´æÔÚ£¬ÄÇÃ´¾Í°ÑÏÖÓĞµÄ×Ö·û´®¼Óµ½valueÖĞ£¬Èç¹û²»´æÔÚ£¬ÄÇÃ´¾ÍÑ¹ÈëÒ»¸öĞÂµÄÊıÖµ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mapï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ã´ï¿½Í°ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Óµï¿½valueï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ñ¹ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Öµ
             if(map.get(stemp) == null){
                 ArrayList<String> value = new ArrayList<String>();
                 value.add(s);
@@ -46,7 +46,7 @@ public class Anagrams104 {
             }
         }
         
-        //±éÀúmapÖĞµÄÃ¿Ò»¸övalue£¬µ±valueµÄ´óĞ¡>1µÄÊ±ºò£¬¾ÍËµÃ÷´æÔÚµßµ¹µÄ×Ö·û´®
+        //ï¿½ï¿½ï¿½ï¿½mapï¿½Ğµï¿½Ã¿Ò»ï¿½ï¿½valueï¿½ï¿½ï¿½ï¿½valueï¿½Ä´ï¿½Ğ¡>1ï¿½ï¿½Ê±ï¿½ò£¬¾ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Úµßµï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
         for(Map.Entry<String,ArrayList<String>> entry : map.entrySet()){
             if(entry.getValue().size() > 1){
                 answer.addAll(entry.getValue());

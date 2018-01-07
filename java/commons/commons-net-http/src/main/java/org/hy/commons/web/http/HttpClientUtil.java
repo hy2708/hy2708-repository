@@ -2,6 +2,7 @@ package org.hy.commons.web.http;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -35,14 +36,17 @@ public class HttpClientUtil {
 	public static final String WHOLE_URL =LOCALHOST_URL+MY_APP+HELLO;
 	
 	public static void main(String[] args) throws HttpException, IOException {
-		visitUrl("http://localhost:8080/myApp/hello");
+		HttpResponse ret =visitUrl("http://www.baidu.com");
+		System.out.println(ret.getStatus());
+		System.out.println(ret.getContent());
+
 	}
 	
 	public static void connectUrl(String url) {
 		visitUrl(url);
 	}
 
-	public static String visitUrl(String url) {		
+	public static HttpResponse visitUrl(String url) {
 		return visitUrl(url, DEFAULT_CHARSET,"get");
 		
 	}
@@ -50,12 +54,12 @@ public class HttpClientUtil {
 	
 	
 	
-	public static String visitUrlWithPostMethod(String url,String contentCharset,NameValuePair... datas) {
+	public static HttpResponse visitUrlWithPostMethod(String url,String contentCharset,NameValuePair... datas) {
 		return visitUrl(url, contentCharset, POST_METHOD, datas);
 	}
 	
 	
-	public static String visitUrlWithPostMethod(String url,String contentCharset,Map<String, String> datas) {
+	public static HttpResponse visitUrlWithPostMethod(String url,String contentCharset,Map<String, String> datas) {
 		List<NameValuePair> list = new LinkedList<NameValuePair>();
 		NameValuePair nameValuePair = null;
 		for (String name : datas.keySet()) {			
@@ -66,8 +70,34 @@ public class HttpClientUtil {
 		}
 		return visitUrl(url, contentCharset, POST_METHOD, list.toArray(new NameValuePair[list.size()] ));
 	}
+
+	public static HttpResponse visitUrlWithPostMethod(String urlWithParamss) {
+		String[] pairs=urlWithParamss.split("\\u003F");
+		if (pairs.length>1){
+			return  visitUrlWithPostMethod(pairs[0],DEFAULT_CHARSET,pairs[1]);
+
+		}else {
+			return  visitUrlWithPostMethod(pairs[0],DEFAULT_CHARSET,"");
+
+		}
+
+	}
+
+
+	public static HttpResponse visitUrlWithPostMethod(String url,String contentCharset,String datas) {
+		String[] pairs=datas.split("&");
+
+		Map<String, String> map = new HashMap<>();
+		for (int i=0;i<pairs.length;i++){
+			String[] kv=pairs[i].split("=");
+			if (kv.length>1){
+				map.put(kv[0],kv[1]);
+			}
+		}
+		return  visitUrlWithPostMethod(url,contentCharset,map);
+	}
 	
-	public static String visitUrlWithGetMethod(String url,String contentCharset) {
+	public static HttpResponse visitUrlWithGetMethod(String url,String contentCharset) {
 		return visitUrl(url, contentCharset, GET_METHOD, null);
 	}
 	
@@ -76,15 +106,6 @@ public class HttpClientUtil {
 	 * 
 	 * <ul>
 	 * <li>方法含义：</li>
-	 * <li>方法作者：花宏宇</li>
-	 * <li>编写日期：2013-6-26；时间：下午1:21:38</li>
-	 * </ul>
-	 * <ul>
-	 * <b>修订编号：</b>
-	 * <li>修订日期：</li>
-	 * <li>修订作者：</li>
-	 * <li>修订原因：</li>
-	 * <li>修订内容：</li>
 	 * </ul>
 	 * @param url
 	 * @param contentCharset
@@ -93,7 +114,7 @@ public class HttpClientUtil {
 	 * @return
 	 * @return
 	 */
-	public static String visitUrl(String url,String contentCharset,String httpMehtod,NameValuePair... datas) {
+	public static HttpResponse visitUrl(String url,String contentCharset,String httpMehtod,NameValuePair... datas) {
 		// 打印服务器返回的状态
 		logger.info("打印HTTP请求的请求头【" +
 				url+"】，参数【" +
@@ -148,8 +169,8 @@ public class HttpClientUtil {
 		method.releaseConnection();
 		
 		//logger.debug(htmlContent);
-		
-		return htmlContent;
+		HttpResponse ret=new HttpResponse(method.getStatusLine().toString(),htmlContent);
+		return ret;
 	}
 	
 	public static InputStream getInputStreamByvisitUrl(String url,String contentCharset,String httpMehtod,NameValuePair... datas) {

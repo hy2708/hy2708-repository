@@ -20,6 +20,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+		<mvn.slf4j.version>1.7.5</mvn.slf4j.version>
+		<mvn.log4j.version>1.2.17</mvn.log4j.version>
 	</properties>
 
 	<dependencies>
@@ -33,38 +37,63 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
-		<!-- 
+		<!--
 		<dependency>
 			<groupId>httpunit</groupId>
 			<artifactId>httpunit</artifactId>
 			<version>1.7</version>
-			
+
 		</dependency>
 		 -->
+		<!--
 		<dependency>
 			<groupId>org.hy.commons.log</groupId>
 			<artifactId>commons-log.slf4j-log4j</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+		-->
+
+
+		<!-- =======================slf4j + log4j 日志的配置 ================================ -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+
+		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId>
+			<version>1.2.16</version> </dependency> -->
+		<!-- =======================slf4j + log4j 日志的配置 完毕 ================================ -->
 		<dependency>
 			<groupId>org.jodd</groupId>
 			<artifactId>jodd-http</artifactId>
+			<version>3.5</version>
+
 		</dependency>
 		<dependency>
-			<groupId>org.hy.server</groupId>
-			<artifactId>server-jetty8</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<!-- 
-			<exclusions>
-				<exclusion>
-					<artifactId>jetty-servlet</artifactId>
-					<groupId>org.eclipse.jetty</groupId>
-				</exclusion>
-			</exclusions>
-			 -->
-			
+			<groupId>org.httpunit</groupId>
+			<artifactId>httpunit</artifactId>
+			<version>1.7.2</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+
 	</dependencies>
 </project>

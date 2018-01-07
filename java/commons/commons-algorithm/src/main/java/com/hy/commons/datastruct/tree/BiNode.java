@@ -2,13 +2,13 @@ package com.hy.commons.datastruct.tree;
 
 public class BiNode {
 
-	private Integer value =null;
+	private Object value =null;
 	private BiNode leftNode =null;
 	private BiNode rightNode =null;
-	public Integer getValue() {
+	public Object getValue() {
 		return value;
 	}
-	public void setValue(Integer value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 	public BiNode getLeftNode() {
@@ -23,6 +23,7 @@ public class BiNode {
 	public void setRightNode(BiNode rightNode) {
 		this.rightNode = rightNode;
 	}
-	
-	
+
+
 }
+f

@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * ±¾ÌâÌâÒâ£º¸ø³öÁËÒ»¸ö¹ÉÆ±µÄ¼Û¸ñ£¬È»ºó ÂòÁËÔÙÂô£¬Çó³ö×î´óµÄ¼Û¸ñ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Æ±ï¿½Ä¼Û¸ï¿½È»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼Û¸ï¿½
  * 
- * ½âÌâË¼Â·£ºÄÇÃ´Ö»ÒªÖªµÀÒÔºóµÄ¹ÉÆ±µÄ×î´óÖµ¾ÍºÃÁË£¬ÄÇÃ´ÎÒ¾Í¿ÉÒÔÔÚÄÇÌìÂôµô¡£
+ * ï¿½ï¿½ï¿½ï¿½Ë¼Â·ï¿½ï¿½ï¿½ï¿½Ã´Ö»ÒªÖªï¿½ï¿½ï¿½Ôºï¿½Ä¹ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Íºï¿½ï¿½Ë£ï¿½ï¿½ï¿½Ã´ï¿½Ò¾Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * 
- * ËùÒÔÍ¨¹ýÒ»¸öÊý×é¼ÇÂ¼×¡Ã¿Ò»¸öÎ»ÖÃºóÃæÄÜ¹»³öÏÖµÄ×î´óÖµ¡£
+ * ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼×¡Ã¿Ò»ï¿½ï¿½Î»ï¿½Ãºï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
  *
  */
 public class BestTimetoBuyandSellStock030 {
@@ -23,18 +23,18 @@ public class BestTimetoBuyandSellStock030 {
         //use an array to remember the max number after the ith element
         int pricesSize = prices.length;
         
-        //ÓÃÓÚ¼ÇÂ¼µ±Ç°½ÚµãºóÃæ¿ÉÄÜ³öÏÖµÄ×î´ó½ÚµãÖµ
+        //ï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½ï¿½Ç°ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Úµï¿½Öµ
         int[] maxNumbers = new int[pricesSize];
         int tempMax = 0;
         
-        //´ÓºóÃæÏòÇ°±éÀú
+        //ï¿½Óºï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
         for(int i = pricesSize-1; i >= 0; i--){
             if(tempMax < prices[i]){
                 tempMax = prices[i];
             }
             maxNumbers[i] = tempMax;
         }
-        Collections.sort(list, Comparator<T>)
+        //Collections.sort(list, Comparator<T>)
         //go through this arry and find the answer
         int answer = 0;
         for(int j = 0; j < pricesSize; j++){

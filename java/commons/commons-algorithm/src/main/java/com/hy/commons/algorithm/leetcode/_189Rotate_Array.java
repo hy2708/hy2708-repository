@@ -21,7 +21,7 @@ public class _189Rotate_Array  {
 				return 0;
 			}
 		});
-        Collections.rotate(list, distance)
+        //Collections.rotate(list, distance)
 	}
 	
 	public static void rotate(int[] nums, int k) {
