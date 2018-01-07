@@ -2,14 +2,18 @@ package com.hy.commons.algorithm.pailiezuhe;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Pailie_Me {
-
+    
 	public static void main(String[] args) {
 		pailie("", "1234");
 		//for
 		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
 
 	}
 	static List<String> list =new LinkedList<String>();
@@ -36,6 +40,17 @@ public class Pailie_Me {
 			 */
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
